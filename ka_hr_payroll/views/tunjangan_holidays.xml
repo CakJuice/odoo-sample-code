@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <!-- View of `ka_hr_payroll.tunjangan.holidays` -->
+        <record model="ir.ui.view" id="view_tunjangan_holidays_tree">
+            <field name="name">ka_hr_payroll.tunjangan.holidays.tree</field>
+            <field name="model">ka_hr_payroll.tunjangan.holidays</field>
+            <field name="arch" type="xml">
+                <tree decoration-bf="state=='draft'" decoration-primary="state=='processed'" decoration-success="state=='approved'" decoration-muted="state=='canceled'">
+                    <field name="name"/>
+                    <field name="date_tunjangan"/>
+                    <field name="holiday_id"/>
+                    <field name="holiday_employee_id"/>
+                    <field name="total"/>
+                    <field name="state"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_tunjangan_holidays_form">
+            <field name="name">ka_hr_payroll.tunjangan.holidays.form</field>
+            <field name="model">ka_hr_payroll.tunjangan.holidays</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_draft" type="object" string="Set ke draft" states="processed" confirm="Anda yakin ingin mengembalikan ke draft?"/>
+                        <button name="action_process" type="object" string="Proses" states="draft" class="oe_highlight" confirm="Lakukan proses tunjangan cuti?"/>
+                        <button name="action_approve" type="object" string="Setujui" states="processed" class="oe_highlight" confirm="Lakukan persetujuan tunjangan cuti?"/>
+                        <button name="action_cancel" type="object" string="Batalkan" states="draft,processed" confirm="Batalkan proses tunjangan cuti ini?"/>
+                        <button name="%(ka_hr_payroll.tunjangan_holidays_slip_report)d" type="action" string="Cetak Slip" class="oe_highlight" icon="fa-print" states="approved" groups="hr.group_hr_user"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Nama"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date_tunjangan"/>
+                                <field name="holiday_id"/>
+                                <field name="holiday_employee_id"/>
+                            </group>
+                            <group>
+                                <field name="date_approve"/>
+                                <field name="company_payroll_id" groups="base.group_multi_company"/>
+                            </group>
+                            <field name="notes"/>
+                        </group>
+                        <notebook>
+                            <page string="Detail Tunjangan">
+                                <group>
+                                    <group>
+                                        <field name="employee_gaji_pokok"/>
+                                        <field name="is_multiply_konjungtur"/>
+                                        <field name="konjungtur_gaji" attrs="{'invisible': [('is_multiply_konjungtur', '=', False)]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="employee_gapok_total"/>
+                                        <field name="employee_tunjangan_rumah"/>
+                                        <field name="employee_tunjangan_jabatan"/>
+                                        <field name="employee_tunjangan_khusus"/>
+                                        <field name="multiply_value"/>
+                                        <field name="total"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Ref. Pembayar Rapel">
+                                <field name="rapel_ref_ids">
+                                    <tree>
+                                        <field name="payroll_rapel_pay_id"/>
+                                        <field name="tunjangan_holidays_rapel_value"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_tunjangan_holidays_search">
+            <field name="name">ka_hr_payroll.tunjangan.holidays.search</field>
+            <field name="model">ka_hr_payroll.tunjangan.holidays</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="date_tunjangan"/>
+                    <field name="holiday_id"/>
+                    <field name="holiday_employee_id"/>
+                    <field name="total"/>
+                    <field name="state"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_tunjangan_holidays">
+            <field name="name">Tunjangan Cuti</field>
+            <field name="res_model">ka_hr_payroll.tunjangan.holidays</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_tunjangan_holidays" id="menu_tunjangan_holidays" parent="menu_payroll" sequence="3" groups="hr.group_hr_user"/>
+    </data>
+</odoo>

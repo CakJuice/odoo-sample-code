@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record model="ir.ui.view" id="hr_document_legal_filter">
+        <field name="name">hr.document.legal.filter</field>
+        <field name="model">hr.document.legal</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Pencarian">
+                <field name="nomor" string="Nomor"/>
+                <field name="partner_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="perijinan_form_view">
+        <field name="name">hr.document.legal.form</field>
+        <field name="model">hr.document.legal</field>
+        <field name="arch" type="xml">
+            <form string="Perijinan Form">
+                <header>
+                    <button name="action_set_off" string="Perijinan tidak berlaku" type="object"
+                            attrs="{'invisible': [('state', '=', 'off')]}" groups="hr.group_hr_user"/>
+                    <button name="action_set_on" string="Perijinan berlaku" type="object"
+                            attrs="{'invisible': [('state', '=', 'on')]}" groups="hr.group_hr_user"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <h2 colspan="2">
+                        <label string="Arsip Dokumen Perijinan"/>
+                    </h2>
+                    <div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+                        <button class="oe_inline oe_stat_button" name="attachment_tree_view" type="object"
+                                icon="fa-files-o">
+                            <field string="Attachments" name="doc_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <hr/>
+                    <group col="4">
+                        <field name="company_id" colspan="4" style="width:35%" groups="base.group_multi_company"/>
+                        <field name="nomor" colspan="4" class="oe_text_upper" style="width:35%%"/>
+                        <field name="name" colspan="4" class="oe_text_upper"/>
+                        <field name="tanggal_terbit"/>
+                        <field name="tanggal_akhir"/>
+                        <field name="partner_id" colspan="4"/>
+                    </group>
+                    <notebook>
+                        <page string="Catatan">
+                            <field name="catatan"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="perijinan_tree_view">
+        <field name="name">hr.document.legal.tree</field>
+        <field name="model">hr.document.legal</field>
+        <field name="arch" type="xml">
+            <tree string="Perijinan Tree" decoration-primary="state=='on'" decoration-warning="state=='off'">
+                <field name="nomor"/>
+                <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="state"/>
+                <field name="tanggal_terbit"/>
+                <field name="tanggal_akhir"/>
+                <field name="partner_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_open_document_legal" model="ir.actions.act_window">
+        <field name="name">Dokumen Perijinan</field>
+        <field name="res_model">hr.document.legal</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Data masih kosong, input data terlebih dahulu!</p>
+        </field>
+    </record>
+
+    <menuitem action="action_open_document_legal" id="menu_hr_perijinan" name="Perijinan" parent="sub_menu_document"
+              sequence="1" groups="hr.group_hr_user"/>
+</odoo>

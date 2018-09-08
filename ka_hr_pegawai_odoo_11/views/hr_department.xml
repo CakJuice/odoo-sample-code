@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record model="ir.ui.view" id="view_department_tree">
+        <field name="name">ka_hr.department.tree</field>
+        <field name="model">hr.department</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="manager_id"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_department_form">
+        <field name="name">ka_hr.department.form</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="code"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_department_filter">
+        <field name="name">ka_hr.department.search</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="code"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data noupdate="1">
+        <!-- Data of hr.status -->
+        <record model="hr.status" id="hr.hr_status_01">
+            <field name="code">01</field>
+            <field name="name">Direksi</field>
+        </record>
+        <record model="hr.status" id="hr.hr_status_02">
+            <field name="code">02</field>
+            <field name="name">Komisaris Utama</field>
+            <field name="parent_id" ref="hr.hr_status_01"/>
+        </record>
+        <record model="hr.status" id="hr.hr_status_03">
+            <field name="code">03</field>
+            <field name="name">Komisaris</field>
+            <field name="parent_id" ref="hr.hr_status_01"/>
+        </record>
+        <record model="hr.status" id="hr.hr_status_04">
+            <field name="code">04</field>
+            <field name="name">Direktur Utama</field>
+            <field name="parent_id" ref="hr.hr_status_01"/>
+        </record>
+        <record model="hr.status" id="hr.hr_status_05">
+            <field name="code">05</field>
+            <field name="name">Direktur Produksi</field>
+            <field name="parent_id" ref="hr.hr_status_01"/>
+        </record>
+        <record model="hr.status" id="hr.hr_status_06">
+            <field name="code">06</field>
+            <field name="name">Direktur Keuangan</field>
+            <field name="parent_id" ref="hr.hr_status_01"/>
+        </record>
+
+        <record model="hr.status" id="hr.hr_status_07">
+            <field name="code">07</field>
+            <field name="name">Staf</field>
+        </record>
+        <record model="hr.status" id="hr.hr_status_08">
+            <field name="code">08</field>
+            <field name="name">HKT</field>
+            <field name="parent_id" ref="hr.hr_status_07"/>
+        </record>
+        <record model="hr.status" id="hr.hr_status_09">
+            <field name="code">09</field>
+            <field name="name">HKB</field>
+            <field name="parent_id" ref="hr.hr_status_07"/>
+        </record>
+
+        <record model="hr.status" id="hr.hr_status_10">
+            <field name="code">10</field>
+            <field name="name">Dewan Komisaris</field>
+            <field name="parent_id" ref="hr.hr_status_01"/>
+        </record>
+        <record model="hr.status" id="hr.hr_status_11">
+            <field name="code">11</field>
+            <field name="name">Komite Audit</field>
+            <field name="parent_id" ref="hr.hr_status_01"/>
+        </record>
+
+        <record model="hr.status" id="hr.hr_status_12">
+            <field name="code">12</field>
+            <field name="name">Pelaksana</field>
+        </record>
+        <record model="hr.status" id="hr.hr_status_13">
+            <field name="code">13</field>
+            <field name="name">Pelaksana Tetap</field>
+            <field name="parent_id" ref="hr.hr_status_12"/>
+        </record>
+    </data>
+</odoo>

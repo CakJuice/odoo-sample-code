@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Template report of `report.ka_hr_payroll.payroll_slip_view`.
+Wizard name `ka_hr_payroll.slip.report.wizard`.
+
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <report id="payroll_slip_report"
+            model="ka_hr_payroll.payroll.employee"
+            string="Slip Gaji Karyawan"
+            report_type="qweb-pdf"
+            name="ka_hr_payroll.payroll_slip_report_view"
+            file="ka_hr_payroll.payroll_slip_report"
+            menu="False"/>
+
+        <record id="ka_hr_payroll.payroll_slip_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="ka_hr_payroll.paperformat_payroll_slip_report"/>
+        </record>
+
+        <template id="payroll_slip_report_view">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="header" style="font-size:18px; border-bottom:2px solid black">
+                        <img src="ka_hr_payroll/static/img/small_logo.png" style="height:40px"/>
+                        <br/>
+                        <strong>Slip Gaji Bulanan. Periode: <span t-field="doc.payroll_month_period"/> <span t-field="doc.payroll_year_period"/></strong>
+                    </div>
+
+                    <div class="page" style="font-size:14px">
+                        <table style="width:100%">
+                            <tr>
+                                <td style="width:10%"><strong>Nama</strong></td>
+                                <td style="width:2%">:</td>
+                                <td><strong><span t-field="doc.employee_id.name"/></strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Unit</strong></td>
+                                <td>:</td>
+                                <td><strong><span t-field="doc.employee_company_id.name"/></strong></td>
+                            </tr>
+                        </table>
+                        <br/>
+
+                        <strong>Penerimaan</strong>
+                        <table style="width:70%">
+                            <tr>
+                                <t t-if="doc.is_multiply_konjungtur">
+                                    <td style="width:30%; padding-left:20px">Gaji Pokok x Konj. Gaji</td>
+                                </t>
+                                <t t-else="">
+                                    <td style="width:30%; padding-left:20px">Gaji Pokok</td>
+                                </t>
+                                <td style="width:20%" class="text-right">
+                                    <span t-esc="doc.formatting_currency(doc.gapok_total)"/>
+                                </td>
+                                <td style="width:20%"><![CDATA[&nbsp;]]></td>
+                            </tr>
+                            <t t-if="doc.tunjangan_rumah > 0">
+                                <tr>
+                                    <td style="padding-left:20px">Tunjangan Rumah</td>
+                                    <td class="text-right">
+                                        <span t-esc="doc.formatting_currency(doc.tunjangan_rumah)"/>
+                                    </td>
+                                    <td><![CDATA[&nbsp;]]></td>
+                                </tr>
+                            </t>
+                            <t t-if="doc.tunjangan_jabatan > 0">
+                                <tr>
+                                    <td style="padding-left:20px">Tunjangan Jabatan</td>
+                                    <td class="text-right">
+                                        <span t-esc="doc.formatting_currency(doc.tunjangan_jabatan)"/>
+                                    </td>
+                                    <td><![CDATA[&nbsp;]]></td>
+                                </tr>
+                            </t>
+                            <t t-if="doc.tunjangan_khusus > 0">
+                                <tr>
+                                    <td style="padding-left:20px">Tunjangan Khusus</td>
+                                    <td class="text-right">
+                                        <span t-esc="doc.formatting_currency(doc.tunjangan_khusus)"/>
+                                    </td>
+                                    <td><![CDATA[&nbsp;]]></td>
+                                </tr>
+                            </t>
+                            <t t-if="doc.tunjangan_representasi > 0">
+                                <tr>
+                                    <td style="padding-left:20px">Tunjangan Representasi</td>
+                                    <td class="text-right">
+                                        <span t-esc="doc.formatting_currency(doc.tunjangan_representasi)"/>
+                                    </td>
+                                    <td><![CDATA[&nbsp;]]></td>
+                                </tr>
+                            </t>
+                            <t t-if="doc.rapel > 0">
+                                <tr>
+                                    <td style="padding-left:20px">Rapel</td>
+                                    <td class="text-right">
+                                        <span t-esc="doc.formatting_currency(doc.rapel)"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td style="padding-left:40px; padding-top:5px">
+                                    <strong>Penerimaan Gaji Bruto</strong>
+                                </td>
+                                <td><![CDATA[&nbsp;]]></td>
+                                <td style="border-top:1px solid black; padding-top:5px" class="text-right">
+                                    <strong><span t-esc="doc.formatting_currency(doc.total_penerimaan)"/></strong>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+
+                        <t t-if="doc.potongan_line_ids">
+                            <strong>Potongan</strong>
+                            <table style="width:70%">
+                                <t t-foreach="doc.potongan_line_ids" t-as="potongan">
+                                    <t t-if="potongan.value > 0">
+                                        <tr>
+                                            <td style="width:30%; padding-left:20px"><t t-esc="potongan.potongan_id.name"/></td>
+                                            <td style="width:20%" class="text-right">
+                                                <span t-esc="doc.formatting_currency(potongan.value)"/>
+                                            </td>
+                                            <td style="width:20%"><![CDATA[&nbsp;]]></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                                <tr>
+                                    <td style="padding-left:40px; padding-top:5px">
+                                        <strong>Total Potongan</strong>
+                                    </td>
+                                    <td><![CDATA[&nbsp;]]></td>
+                                    <td style="border-top:1px solid black; padding-top:5px" class="text-right">
+                                        <strong><span t-esc="doc.formatting_currency(doc.total_potongan)"/></strong>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                        </t>
+
+                        <table style="width:70%">
+                            <t t-if="doc.is_proportion">
+                                <tr>
+                                    <td style="width:30%">
+                                        <strong>Nilai Proporsi</strong>
+                                    </td>
+                                    <td style="width:20%"><![CDATA[&nbsp;]]></td>
+                                    <td style="width:20%" class="text-right">
+                                        <strong><span t-field="doc.proportion_value"/></strong>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td style="width:30%">
+                                    <strong>Penerimaan Bersih</strong>
+                                </td>
+                                <td style="width:20%"><![CDATA[&nbsp;]]></td>
+                                <td style="width:20%" class="text-right">
+                                    <strong><span t-esc="doc.formatting_currency(doc.grand_total)"/></strong>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="footer">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <t t-if="doc.is_multiply_konjungtur">
+                                    Keterangan :<br/>
+                                    Gaji Pokok = <span t-esc="doc.formatting_currency(doc.gaji_pokok)"/><br/>
+                                    Indeks Konjungtur Gaji = <span t-esc="doc.formatting_currency(doc.konjungtur_gaji)"/> %<br/>
+                                    Indeks Konjungtur Dapen = <span t-esc="doc.formatting_currency(doc.konjungtur_dapen)"/> %<br/>
+                                </t>
+                            </div>
+
+                            <t t-set="company" t-value="doc.employee_id.company_payroll_id"/>
+                            <t t-set="kadiv" t-value="company.dept_tuk.manager_id.name"/>
+                            <div class="col-xs-6 text-center">
+                                <span t-esc="company.city"/>, <span t-esc="doc.get_date_payroll()"/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <t t-if="kadiv">
+                                    <strong><span t-esc="kadiv"/></strong>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

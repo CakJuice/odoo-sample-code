@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <!-- View of `ka_hr_payroll.rapel.tunjangan.khusus.period` -->
+        <record model="ir.ui.view" id="view_rapel_tunjangan_khusus_period_tree">
+            <field name="name">ka_hr_payroll.rapel.tunjangan.khusus.period.tree</field>
+            <field name="model">ka_hr_payroll.rapel.tunjangan.khusus.period</field>
+            <field name="arch" type="xml">
+                <tree create="false" edit="false" decoration-success="state=='approved'" decoration-primary="state=='done'">
+                    <field name="name"/>
+                    <field name="new_period_id"/>
+                    <field name="old_period_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="rapel_pay"/>
+                    <field name="status_id"/>
+                    <field name="state"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_rapel_tunjangan_khusus_period_form">
+            <field name="name">ka_hr_payroll.rapel.tunjangan.khusus.period.form</field>
+            <field name="model">ka_hr_payroll.rapel.tunjangan.khusus.period</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Nama Rapel"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="new_period_id"/>
+                                <field name="old_period_id"/>
+                                <field name="status_id"/>
+                                <field name="company_payroll_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <label for="month_pay" string="Rapel Bayar"/>
+                                <div>
+                                    <div>
+                                        <field name="month_pay" class="oe_inline"/>
+                                        <label string=" " class="oe_inline"/>
+                                        <field name="year_pay" class="oe_inline"/>
+                                    </div>
+                                </div>
+                                <field name="date_done"/>
+                                <field name="payroll_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Detail Rapel">
+                                <field name="line_ids">
+                                    <tree>
+                                        <field name="new_period_lines_id"/>
+                                        <field name="old_period_lines_id"/>
+                                        <field name="combine_id"/>
+                                        <field name="new_value"/>
+                                        <field name="old_value"/>
+                                        <field name="selisih"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_rapel_tunjangan_khusus_period_search">
+            <field name="name">ka_hr_payroll.rapel.tunjangan.khusus.period.search</field>
+            <field name="model">ka_hr_payroll.rapel.tunjangan.khusus.period</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="new_period_id"/>
+                    <field name="old_period_id"/>
+                    <field name="status_id"/>
+                    <field name="state"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_rapel_tunjangan_khusus_period">
+            <field name="name">Rapel Tunjangan Khusus Per Periode</field>
+            <field name="res_model">ka_hr_payroll.rapel.tunjangan.khusus.period</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_rapel_tunjangan_khusus_period" id="menu_rapel_tunjangan_khusus_period" parent="menu_rapel_company" sequence="4" groups="hr.group_hr_user"/>
+
+        <!-- View of `ka_hr_payroll.rapel.tunjangan.khusus.period.lines` -->
+        <record model="ir.ui.view" id="view_rapel_tunjangan_khusus_period_lines_form">
+            <field name="name">ka_hr_payroll.rapel.tunjangan.khusus.period.lines.form</field>
+            <field name="model">ka_hr_payroll.rapel.tunjangan.khusus.period.lines</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="rapel_period_id"/>
+                            <field name="new_period_lines_id"/>
+                            <field name="old_period_lines_id"/>
+                            <field name="combine_id"/>
+                            <field name="new_value"/>
+                            <field name="old_value"/>
+                            <field name="selisih"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

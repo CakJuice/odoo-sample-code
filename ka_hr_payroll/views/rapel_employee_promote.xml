@@ -1,0 +1,84 @@
+<odoo>
+    <data>
+        <!-- View of `ka_hr_payroll.rapel.hr.employee.promote` -->
+        <record model="ir.ui.view" id="view_rapel_employee_promote_tree">
+            <field name="name">ka_hr_payroll.rapel.hr.employee.promote.form</field>
+            <field name="model">ka_hr_payroll.rapel.hr.employee.promote</field>
+            <field name="arch" type="xml">
+                <tree create="false" edit="false" decoration-success="state=='approved'" decoration-primary="state=='done'">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="rapel_pay"/>
+                    <field name="state"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_rapel_employee_promote_form">
+            <field name="name">ka_hr_payroll.rapel.hr.employee.promote.form</field>
+            <field name="model">ka_hr_payroll.rapel.hr.employee.promote</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Nama Rapel"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="new_employee_promote_id"/>
+                                <field name="old_employee_promote_id"/>
+                                <field name="company_payroll_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <label for="month_pay" string="Rapel Bayar"/>
+                                <div>
+                                    <div>
+                                        <field name="month_pay" class="oe_inline"/>
+                                        <label string=" " class="oe_inline"/>
+                                        <field name="year_pay" class="oe_inline"/>
+                                    </div>
+                                </div>
+                                <field name="date_done"/>
+                                <field name="payroll_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_rapel_employee_promote_search">
+            <field name="name">ka_hr_payroll.rapel.hr.employee.promote.search</field>
+            <field name="model">ka_hr_payroll.rapel.hr.employee.promote</field>
+            <field name="arch" type="xml">
+                <search create="false" edit="false">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="state"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_rapel_employee_promote">
+            <field name="name">Rapel History Promosi</field>
+            <field name="res_model">ka_hr_payroll.rapel.hr.employee.promote</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_rapel_employee_promote" id="menu_rapel_employee_promote" parent="menu_rapel_employee" sequence="1" groups="hr.group_hr_user"/>
+    </data>
+</odoo>

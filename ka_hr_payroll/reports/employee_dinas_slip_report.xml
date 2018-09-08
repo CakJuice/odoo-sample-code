@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="report.paperformat" id="paperformat_payroll_employee_dinas_slip_report">
+            <field name="name">Paperformat Slip Biaya Dinas</field>
+            <field name="default" eval="True"/>
+            <field name="format">A5</field>
+            <field name="page_width">0</field>
+            <field name="page_height">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_right">5</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report id="employee_dinas_slip_report"
+                model="ka_hr_payroll.employee.dinas"
+                string="Slip Biaya Dinas Karyawan"
+                report_type="qweb-pdf"
+                name="ka_hr_payroll.employee_dinas_slip_report_view"
+                file="ka_hr_payroll.employee_dinas_slip_report"
+                paperformat="paperformat_payroll_employee_dinas_slip_report"
+                menu="False"/>
+
+        <template id="employee_dinas_slip_report_view">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page" style="font-size: 14px">
+                        <h3 class="text-center">
+                            <u>Perhitungan Biaya Perjalanan Dinas Karyawan</u>
+                        </h3>
+
+                        <table class="table-condensed" style="width:100%; margin-top:20px;">
+                            <tr>
+                                <th style="width:15%">No. SPJ</th>
+                                <td style="width:2%">:</td>
+                                <td>
+                                    <span t-field="doc.nomor_dinas"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Nama</th>
+                                <td>:</td>
+                                <td>
+                                    <span t-field="doc.employee_id"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Jabatan</th>
+                                <td>:</td>
+                                <td>
+                                    <span t-field="doc.employee_id.jabatan_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Pergi Ke</th>
+                                <td>:</td>
+                                <td>
+                                    <span t-field="doc.holiday_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Tanggal</th>
+                                <td>:</td>
+                                <td>
+                                    <span t-field="doc.holiday_id.date_from"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h4 style="margin-top:20px">Perhitungan</h4>
+                        <table class="table-condensed" style="width:89%">
+                            <tr>
+                                <th style="width:25%">Uang Saku</th>
+                                <td style="width:2%">:</td>
+                                <td style="width:40%" class="text-right">
+                                    <span t-esc="doc.formatting_currency(doc.uang_saku)"/>
+                                    <t t-if="doc.is_daily_uang_saku">
+                                        x
+                                        <span t-field="doc.duration"/> hari
+                                    </t>
+                                    x <span t-field="doc.prosentase"/>%
+                                </td>
+                                <td style="width:2%">=</td>
+                                <td class="text-right" style="width:20%">
+                                    <strong>
+                                        <span t-esc="doc.formatting_currency(doc.total_uang_saku)"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Uang Makan</th>
+                                <td>:</td>
+                                <td class="text-right">
+                                    <span t-esc="doc.formatting_currency(doc.uang_makan)"/>
+                                    <t t-if="doc.is_daily_uang_makan">
+                                        x
+                                        <span t-field="doc.duration"/> hari
+                                    </t>
+                                    x <span t-field="doc.prosentase"/>%
+                                </td>
+                                <td>=</td>
+                                <td class="text-right">
+                                    <strong>
+                                        <span t-esc="doc.formatting_currency(doc.total_uang_makan)"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Uang Cucian</th>
+                                <td>:</td>
+                                <td class="text-right">
+                                    <span t-esc="doc.formatting_currency(doc.uang_cuci)"/>
+                                    <t t-if="doc.is_daily_uang_cuci">
+                                        x
+                                        <span t-field="doc.duration"/> hari
+                                    </t>
+                                    x <span t-field="doc.prosentase"/>%
+                                </td>
+                                <td>=</td>
+                                <td class="text-right">
+                                    <strong>
+                                        <span t-esc="doc.formatting_currency(doc.total_uang_cuci)"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Uang Penginapan</th>
+                                <td>:</td>
+                                <td class="text-right">
+                                    <span t-esc="doc.formatting_currency(doc.uang_penginapan)"/>
+                                    <t t-if="doc.is_daily_uang_penginapan">
+                                        x
+                                        <span t-field="doc.duration"/> hari
+                                    </t>
+                                    x <span t-field="doc.prosentase"/>%
+                                </td>
+                                <td>=</td>
+                                <td class="text-right">
+                                    <strong>
+                                        <span t-esc="doc.formatting_currency(doc.total_uang_penginapan)"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Uang Transport</th>
+                                <td>:</td>
+                                <td class="text-right">
+                                    <span t-esc="doc.formatting_currency(doc.uang_transport)"/>
+                                    <t t-if="doc.is_daily_uang_transport">
+                                        x
+                                        <span t-field="doc.duration"/> hari
+                                    </t>
+                                    x <span t-field="doc.prosentase"/>%
+                                </td>
+                                <td>=</td>
+                                <td class="text-right">
+                                    <strong>
+                                        <span t-esc="doc.formatting_currency(doc.total_uang_transport)"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Uang Pesawat</th>
+                                <td>:</td>
+                                <td class="text-right">
+                                    <span t-esc="doc.formatting_currency(doc.uang_pesawat)"/>
+                                    <t t-if="doc.is_daily_uang_pesawat">
+                                        x
+                                        <span t-field="doc.duration"/> hari
+                                    </t>
+                                    x <span t-field="doc.prosentase"/>%
+                                </td>
+                                <td>=</td>
+                                <td class="text-right">
+                                    <strong>
+                                        <span t-esc="doc.formatting_currency(doc.total_uang_pesawat)"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Uang Lain-lain</th>
+                                <td>:</td>
+                                <td><![CDATA[&nbsp;]]></td>
+                                <td><![CDATA[&nbsp;]]></td>
+                                <td class="text-right">
+                                    <strong>
+                                        <span t-esc="doc.formatting_currency(doc.uang_lain)"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Uang Pengeluaran</th>
+                                <td>:</td>
+                                <td><![CDATA[&nbsp;]]></td>
+                                <td><![CDATA[&nbsp;]]></td>
+                                <td class="text-right" style="border-bottom:1px solid black">
+                                    <strong>
+                                        <span t-esc="doc.formatting_currency(doc.uang_pengeluaran)"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><![CDATA[&nbsp;]]></td>
+                                <td><![CDATA[&nbsp;]]></td>
+                                <td class="text-right">Jumlah</td>
+                                <td><![CDATA[&nbsp;]]></td>
+                                <td class="text-right" style="border-bottom:2px solid black">
+                                    <strong>
+                                        <span t-esc="doc.formatting_currency(doc.grand_total)"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="row" style="margin-top:30px">
+                            <div class="col-xs-5 col-xs-offset-7 text-center">
+                                <span t-field="doc.company_payroll_id.city"/>, <span t-field="doc.date_pay"/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <span t-field="doc.company_payroll_id.dept_tuk.manager_id.name"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <record model="ir.module.category" id="ka_hr_payroll_category">
+            <field name="name">Penggajian</field>
+            <field name="description">Data Penggajian Karyawan</field>
+        </record>
+
+        <record model="res.groups" id="ka_hr_payroll.group_employee">
+            <field name="name">Employee</field>
+            <field name="category_id" ref="ka_hr_payroll_category"/>
+        </record>
+
+        <record model="res.groups" id="ka_hr_payroll.group_user">
+            <field name="name">Officer</field>
+            <field name="category_id" ref="ka_hr_payroll_category"/>
+            <field name="implied_ids" eval="[(4, ref('ka_hr_payroll.group_employee'))]"/>
+        </record>
+
+        <record model="res.groups" id="ka_hr_payroll.group_manager">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="ka_hr_payroll_category"/>
+            <field name="implied_ids" eval="[(4, ref('ka_hr_payroll.group_user'))]"/>
+        </record>
+
+        <!-- Record rules -->
+
+        <record model="ir.rule" id="employee_payroll_employee_read_rule">
+            <field name="name">Employee can read his own payroll</field>
+            <field name="model_id" ref="model_ka_hr_payroll_payroll_employee"/>
+            <field name="groups" eval="[(4, ref('ka_hr_payroll.group_employee'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+        </record>
+
+        <record model="ir.rule" id="employee_payroll_user_read_rule">
+            <field name="name">HR User can read all payroll</field>
+            <field name="model_id" ref="model_ka_hr_payroll_payroll_employee"/>
+            <field name="groups" eval="[(4, ref('ka_hr_payroll.group_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">[]</field>
+        </record>
+
+        <record model="ir.rule" id="employee_tunjangan_employee_holidays_read_rule">
+            <field name="name">Employee can read his own tunjangan holidays</field>
+            <field name="model_id" ref="model_ka_hr_payroll_tunjangan_holidays"/>
+            <field name="groups" eval="[(4, ref('ka_hr_payroll.group_employee'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">[('holiday_employee_id.user_id', '=', user.id)]</field>
+        </record>
+
+        <record model="ir.rule" id="employee_tunjangan_user_holidays_read_rule">
+            <field name="name">HR User can read all tunjangan holidays</field>
+            <field name="model_id" ref="model_ka_hr_payroll_tunjangan_holidays"/>
+            <field name="groups" eval="[(4, ref('ka_hr_payroll.group_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">[]</field>
+        </record>
+
+        <record model="ir.rule" id="employee_holidays_afkoop_employee_read_rule">
+            <field name="name">Employee can read his own holidays afkoop</field>
+            <field name="model_id" ref="model_ka_hr_holidays_afkoop"/>
+            <field name="groups" eval="[(4, ref('ka_hr_payroll.group_employee'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">[
+                ('employee_id.user_id', '=', user.id),
+                ]</field>
+        </record>
+
+        <record model="ir.rule" id="employee_holidays_afkoop_user_read_rule">
+            <field name="name">HR User can read all holidays afkoop</field>
+            <field name="model_id" ref="model_ka_hr_holidays_afkoop"/>
+            <field name="groups" eval="[(4, ref('ka_hr_payroll.group_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">[]</field>
+        </record>
+    </data>
+</odoo>

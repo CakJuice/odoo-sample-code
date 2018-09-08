@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <!-- View of `ka_hr_payroll.reward` -->
+        <record model="ir.ui.view" id="view_reward_tree">
+            <field name="name">ka_hr_payroll.reward.tree</field>
+            <field name="model">ka_hr_payroll.reward</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="reward_type"/>
+                    <field name="year_period"/>
+                    <field name="multiply_value"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_reward_form">
+            <field name="name">ka_hr_payroll.reward.form</field>
+            <field name="model">ka_hr_payroll.reward</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Nama Penghargaan"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="code"/>
+                                <field name="reward_type"/>
+                                <field name="year_period"/>
+                                <field name="multiply_value"/>
+                            </group>
+                            <group>
+                                <field name="is_tunjangan_rumah"/>
+                                <field name="is_tunjangan_jabatan"/>
+                                <field name="is_tunjangan_khusus"/>
+                                <field name="is_tunjangan_representasi"/>
+                                <field name="company_payroll_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_reward_search">
+            <field name="name">ka_hr_payroll.reward.search</field>
+            <field name="model">ka_hr_payroll.reward</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="reward_type"/>
+                    <field name="year_period"/>
+                    <field name="multiply_value"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_reward">
+            <field name="name">Penghargaan Masa Dinas / Pisah Pensiun</field>
+            <field name="res_model">ka_hr_payroll.reward</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_reward" id="menu_reward" parent="menu_config" sequence="2" groups="hr.group_hr_user"/>
+    </data>
+</odoo>

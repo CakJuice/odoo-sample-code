@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <!-- View of `hr.employee.promote` -->
+    <record model="ir.ui.view" id="view_employee_promote_tree">
+        <field name="name">hr.employee.promote.tree</field>
+        <field name="model">hr.employee.promote</field>
+        <field name="arch" type="xml">
+            <tree decoration-bf="state=='draft'" decoration-success="state=='processed'"
+                  decoration-danger="state=='rapel'" decoration-primary="state=='done'"
+                  decoration-muted="state=='canceled'">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="date_start"/>
+                <field name="date_approve"/>
+                <field name="date_done"/>
+                <field name="promote_type"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_employee_promote_form">
+        <field name="name">hr.employee.promote.form</field>
+        <field name="model">hr.employee.promote</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_draft" type="object" string="Set ke draft" states="processed"
+                            confirm="Anda yakin ingin mengembalikan ke draft?"/>
+                    <button name="action_process" type="object" string="Proses" states="draft" class="oe_highlight"
+                            confirm="Lakukan proses promosi?"/>
+                    <button name="action_approve" type="object" string="Setujui" states="processed" class="oe_highlight"
+                            confirm="Lakukan persetujuan promosi?"/>
+                    <button name="action_cancel" type="object" string="Batalkan" states="draft,processed"
+                            confirm="Batalkan history promosi ini?"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Nama"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="promote_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="date_start" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="is_contract" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="date_end"
+                                   attrs="{'invisible': [('is_contract', '=', False)], 'required': [('is_contract', '=', True)], 'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="old_promote_id"/>
+                        </group>
+                        <group>
+                            <field name="no_sk"/>
+                            <field name="date_approve" attrs="{'readonly': [('state', 'in', ['done', 'canceled'])]}"/>
+                            <field name="date_done" attrs="{'readonly': [('state', 'in', ['done', 'canceled'])]}"/>
+                        </group>
+                        <field name="notes"/>
+                    </group>
+                    <notebook>
+                        <page string="Data Kepegawaian">
+                            <group>
+                                <group string="Data Baru">
+                                    <field name="department_id"
+                                           attrs="{'readonly': ['|', ('promote_type', 'in', ['6', '7', '8', '9']), ('state', '!=', 'draft')]}"/>
+                                    <field name="jabatan_id"
+                                           attrs="{'readonly': ['|', ('promote_type', 'in', ['6', '7', '8', '9']), ('state', '!=', 'draft')]}"/>
+                                    <field name="pangkat_id"
+                                           attrs="{'readonly': ['|', ('promote_type', 'in', ['6', '7', '8', '9']), ('state', '!=', 'draft')]}"/>
+                                    <field name="golongan_id"
+                                           attrs="{'readonly': ['|', ('promote_type', 'in', ['6', '7', '8', '9']), ('state', '!=', 'draft')]}"/>
+                                    <field name="status_id"
+                                           attrs="{'readonly': ['|', ('promote_type', 'in', ['6', '7', '8', '9']), ('state', '!=', 'draft')], 'required': [('promote_type', 'in', ['1', '2', '3', '4', '5'])]}"/>
+                                    <field name="company_id"
+                                           attrs="{'readonly': ['|', ('promote_type', 'in', ['6', '7', '8', '9']), ('state', '!=', 'draft')], 'required': [('promote_type', 'in', ['1', '2', '3', '4', '5'])]}"/>
+                                </group>
+                                <group string="Data Lama">
+                                    <field name="old_department_id"/>
+                                    <field name="old_jabatan_id"/>
+                                    <field name="old_pangkat_id"/>
+                                    <field name="old_golongan_id"/>
+                                    <field name="old_status_id"/>
+                                    <field name="old_company_id"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_employee_promote_search">
+        <field name="name">hr.employee.promote.search</field>
+        <field name="model">hr.employee.promote</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="date_start"/>
+                <field name="employee_id"/>
+                <field name="date_approve"/>
+                <field name="date_done"/>
+                <field name="promote_type"/>
+                <field name="state"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_employee_promote">
+        <field name="name">History Promosi Karyawan</field>
+        <field name="res_model">hr.employee.promote</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_employee_promote" id="menu_employee_promote" parent="sub_menu_config" sequence="2"
+              groups="hr.group_hr_manager"/>
+</odoo>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <!-- View of `ka_hr_payroll.rapel.company.konjungtur` -->
+        <record model="ir.ui.view" id="view_rapel_company_konjungtur_tree">
+            <field name="name">ka_hr_payroll.rapel.company.konjungtur.tree</field>
+            <field name="model">ka_hr_payroll.rapel.company.konjungtur</field>
+            <field name="arch" type="xml">
+                <tree create="false" edit="false" decoration-success="state=='approved'" decoration-primary="state=='done'">
+                    <field name="name"/>
+                    <field name="new_konjungtur_id"/>
+                    <field name="old_konjungtur_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="rapel_pay"/>
+                    <field name="state"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_rapel_company_konjungtur_form">
+            <field name="name">ka_hr_payroll.rapel.company.konjungtur.form</field>
+            <field name="model">ka_hr_payroll.rapel.company.konjungtur</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Nama Rapel"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="new_konjungtur_id"/>
+                                <field name="old_konjungtur_id"/>
+                                <field name="konjungtur_type"/>
+                                <field name="new_value"/>
+                                <field name="old_value"/>
+                                <field name="company_payroll_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <label for="month_pay" string="Rapel Bayar"/>
+                                <div>
+                                    <div>
+                                        <field name="month_pay" class="oe_inline"/>
+                                        <label string=" " class="oe_inline"/>
+                                        <field name="year_pay" class="oe_inline"/>
+                                    </div>
+                                </div>
+                                <field name="date_done"/>
+                                <field name="payroll_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_rapel_company_konjungtur_search">
+            <field name="name">ka_hr_payroll.rapel.company.konjungtur.search</field>
+            <field name="model">ka_hr_payroll.rapel.company.konjungtur</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="new_konjungtur_id"/>
+                    <field name="old_konjungtur_id"/>
+                    <field name="state"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                    <separator/>
+                    <filter name="konjungtur_type_1" string="Konjungtur Gaji" domain="[('konjungtur_type', '=', '1')]"/>
+                    <filter name="konjungtur_type_2" string="Konjungtur Dapen" domain="[('konjungtur_type', '=', '2')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_rapel_company_konjungtur_gaji">
+            <field name="name">Rapel Konjungtur Gaji</field>
+            <field name="res_model">ka_hr_payroll.rapel.company.konjungtur</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{
+                'search_default_konjungtur_type_1': 1,
+                'default_konjungtur_type': '1',
+            }</field>
+        </record>
+
+        <menuitem action="action_rapel_company_konjungtur_gaji" id="menu_rapel_company_konjungtur_gaji" parent="menu_rapel_company" sequence="6" groups="hr.group_hr_user"/>
+
+        <record model="ir.actions.act_window" id="action_rapel_company_konjungtur_dapen">
+            <field name="name">Rapel Konjungtur Dapen</field>
+            <field name="res_model">ka_hr_payroll.rapel.company.konjungtur</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{
+                'search_default_konjungtur_type_2': 1,
+                'default_konjungtur_type': '2',
+            }</field>
+        </record>
+
+        <menuitem action="action_rapel_company_konjungtur_dapen" id="menu_rapel_company_konjungtur_dapen" parent="menu_rapel_company" sequence="7" groups="hr.group_hr_user"/>
+    </data>
+</odoo>

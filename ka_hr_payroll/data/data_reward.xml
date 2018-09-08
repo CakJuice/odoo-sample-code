@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Default data of ka_hr_payroll.reward
+
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data noupdate="1">
+        <record model="ka_hr_payroll.reward" id="ka_hr_payroll.reward_01">
+            <field name="code">01</field>
+            <field name="year_period">10</field>
+            <field name="reward_type">1</field>
+            <field name="multiply_value">2.50</field>
+            <field name="is_tunjangan_rumah">False</field>
+            <field name="is_tunjangan_jabatan">True</field>
+            <field name="is_tunjangan_khusus">True</field>
+            <field name="is_tunjangan_representasi">True</field>
+            <field name="company_payroll_id" ref="base.kantor_direksi"/>
+        </record>
+        <record model="ka_hr_payroll.reward" id="ka_hr_payroll.reward_02">
+            <field name="code">02</field>
+            <field name="year_period">15</field>
+            <field name="reward_type">1</field>
+            <field name="multiply_value">3.00</field>
+            <field name="is_tunjangan_rumah">False</field>
+            <field name="is_tunjangan_jabatan">True</field>
+            <field name="is_tunjangan_khusus">True</field>
+            <field name="is_tunjangan_representasi">True</field>
+            <field name="company_payroll_id" ref="base.kantor_direksi"/>
+        </record>
+        <record model="ka_hr_payroll.reward" id="ka_hr_payroll.reward_03">
+            <field name="code">03</field>
+            <field name="year_period">20</field>
+            <field name="reward_type">1</field>
+            <field name="multiply_value">3.50</field>
+            <field name="is_tunjangan_rumah">False</field>
+            <field name="is_tunjangan_jabatan">True</field>
+            <field name="is_tunjangan_khusus">True</field>
+            <field name="is_tunjangan_representasi">True</field>
+            <field name="company_payroll_id" ref="base.kantor_direksi"/>
+        </record>
+        <record model="ka_hr_payroll.reward" id="ka_hr_payroll.reward_04">
+            <field name="code">04</field>
+            <field name="year_period">5</field>
+            <field name="reward_type">2</field>
+            <field name="multiply_value">1.50</field>
+            <field name="is_tunjangan_rumah">False</field>
+            <field name="is_tunjangan_jabatan">True</field>
+            <field name="is_tunjangan_khusus">True</field>
+            <field name="is_tunjangan_representasi">True</field>
+            <field name="company_payroll_id" ref="base.kantor_direksi"/>
+        </record>
+        <record model="ka_hr_payroll.reward" id="ka_hr_payroll.reward_05">
+            <field name="code">05</field>
+            <field name="year_period">10</field>
+            <field name="reward_type">2</field>
+            <field name="multiply_value">3.00</field>
+            <field name="is_tunjangan_rumah">False</field>
+            <field name="is_tunjangan_jabatan">True</field>
+            <field name="is_tunjangan_khusus">True</field>
+            <field name="is_tunjangan_representasi">True</field>
+            <field name="company_payroll_id" ref="base.kantor_direksi"/>
+        </record>
+        <record model="ka_hr_payroll.reward" id="ka_hr_payroll.reward_06">
+            <field name="code">06</field>
+            <field name="year_period">20</field>
+            <field name="reward_type">2</field>
+            <field name="multiply_value">4.50</field>
+            <field name="is_tunjangan_rumah">False</field>
+            <field name="is_tunjangan_jabatan">True</field>
+            <field name="is_tunjangan_khusus">True</field>
+            <field name="is_tunjangan_representasi">True</field>
+            <field name="company_payroll_id" ref="base.kantor_direksi"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <!--Modif User View-->
+    <record model="ir.ui.view" id="view_logistik_base_stasiun_users">
+        <field name="name">analytic.account.stasiun.users</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="before">
+                <field name="department_ids" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+</odoo>

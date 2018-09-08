@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <menuitem id="menu_ketetapan" name="Ketetapan" parent="menu_penerimaan" sequence="5" groups="hr.group_hr_user"/>
+
+        <!-- View of `ka_hr_payroll.company.default` -->
+        <record model="ir.ui.view" id="view_company_default_tree">
+            <field name="name">ka_hr_payroll.company.default.tree</field>
+            <field name="model">ka_hr_payroll.company.default</field>
+            <field name="arch" type="xml">
+                <tree decoration-bf="state=='draft'" decoration-success="state=='processed'" decoration-danger="state=='rapel'" decoration-primary="state=='done'" decoration-muted="state=='canceled'">
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="status_id"/>
+                    <field name="state"/>
+                    <field name="state_rapel"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_company_default_form">
+            <field name="name">ka_hr_payroll.company.default.form</field>
+            <field name="model">ka_hr_payroll.company.default</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_draft" type="object" string="Set ke draft" states="processed" confirm="Anda yakin ingin mengembalikan ke draft?"/>
+                        <button name="action_process" type="object" string="Proses" states="draft" class="oe_highlight" confirm="Lakukan proses konjungtur?"/>
+                        <button name="action_approve" type="object" string="Setujui" states="processed" class="oe_highlight" confirm="Lakukan persetujuan konjungtur?"/>
+                        <button name="action_done" type="object" string="Proses Rapel" states="rapel" class="oe_highlight" confirm="Lakukan proses rapel?"/>
+                        <button name="action_cancel" type="object" string="Dibatalkan" states="draft,processed" confirm="Batalkan proses konjungtur ini?"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Nama Ketetapan"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date_start"/>
+                                <field name="status_id"/>
+                                <field name="gaji_pokok"/>
+                                <field name="tunjangan_rumah"/>
+                                <field name="tunjangan_jabatan"/>
+                                <field name="tunjangan_khusus"/>
+                                <field name="tunjangan_representasi"/>
+                                <field name="company_payroll_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="no_sk"/>
+                                <field name="date_approve"/>
+                                <field name="date_done"/>
+                                <field name="state_rapel"/>
+                                <field name="rapel_id"/>
+                            </group>
+                            <field name="notes"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_company_default_search">
+            <field name="name">ka_hr_payroll.company.default.search</field>
+            <field name="model">ka_hr_payroll.company.default</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="status_id"/>
+                    <field name="state"/>
+                    <field name="state_rapel"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_company_default">
+            <field name="name">Ketetapan Gaji</field>
+            <field name="res_model">ka_hr_payroll.company.default</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_company_default" id="menu_company_default" parent="menu_ketetapan" sequence="1" groups="hr.group_hr_user"/>
+    </data>
+</odoo>

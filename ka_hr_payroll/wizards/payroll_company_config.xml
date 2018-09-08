@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+View of ka_hr_payroll.config.wizard
+
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="wizard_company_config_form">
+            <field name="name">SDM - Setting Unit/PG Payroll</field>
+            <field name="model">ka_hr_payroll.company.config.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="SDM - Setting Unit/PG Payroll">
+                    <group>
+                        <field name="company_id"/>
+                        <field name="hr_notif_payroll"/>
+                    </group>
+                    <group string="Setting Gaji Bulanan">
+                        <group>
+                            <field name="is_tunjangan_rumah"/>
+                            <field name="is_tunjangan_jabatan"/>
+                        </group>
+                        <group>
+                            <field name="is_tunjangan_khusus"/>
+                            <field name="is_tunjangan_representasi"/>
+                        </group>
+                    </group>
+                    <group string="Setting THR">
+                        <group>
+                            <field name="thr_tunjangan_rumah"/>
+                            <field name="thr_tunjangan_jabatan"/>
+                        </group>
+                        <group>
+                            <field name="thr_tunjangan_khusus"/>
+                            <field name="thr_tunjangan_representasi"/>
+                        </group>
+                    </group>
+                    <group string="Setting Tunjangan Cuti">
+                        <group>
+                            <field name="cuti_tunjangan_rumah"/>
+                            <field name="cuti_tunjangan_jabatan"/>
+                        </group>
+                        <group>
+                            <field name="cuti_tunjangan_khusus"/>
+                            <field name="cuti_tunjangan_representasi"/>
+                        </group>
+                    </group>
+                    <group string="Setting Afkoop">
+                        <group>
+                            <field name="afkoop_tunjangan_rumah"/>
+                            <field name="afkoop_tunjangan_jabatan"/>
+                        </group>
+                        <group>
+                            <field name="afkoop_tunjangan_khusus"/>
+                            <field name="afkoop_tunjangan_representasi"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="save_data" string="Simpan Data" type="object" class="btn-primary"/>
+                        <button string="Batal" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window
+            id="action_wizard_company_config"
+            name="Setting Penggajian Unit/PG"
+            res_model="ka_hr_payroll.company.config.wizard"
+            view_mode="form"
+            target="new"/>
+
+        <menuitem action="action_wizard_company_config" id="menu_wizard_company_config" parent="menu_config" sequence="9" groups="hr.group_hr_user"/>
+    </data>
+</odoo>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_hr_status_list">
+            <field name="name">ka_hr_payroll.status.list</field>
+            <field name="model">hr.status</field>
+            <field name="inherit_id" ref="ka_hr_pegawai.view_hr_status_list"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="before">
+                    <field name="is_default_payroll"/>
+                    <field name="is_multiply_konjungtur"/>
+                    <field name="is_daily_pay"/>
+                    <field name="is_gaji_proportion"/>
+                    <field name="is_thr"/>
+                    <field name="is_tunjangan_cuti"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- <record model="ir.ui.view" id="view_hr_status_tree">
+            <field name="name">ka_hr_payroll.status.tree</field>
+            <field name="model">hr.status</field>
+            <field name="inherit_id" ref="ka_hr_pegawai.view_hr_status_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="is_default_payroll"/>
+                    <field name="is_multiply_konjungtur"/>
+                    <field name="is_daily_pay"/>
+                    <field name="is_thr"/>
+                    <field name="thr_multiply"/>
+                    <field name="is_tunjangan_cuti"/>
+                    <field name="cuti_multiply"/>
+                </field>
+            </field>
+        </record> -->
+
+        <record model="ir.ui.view" id="view_hr_status_form">
+            <field name="name">ka_hr_payroll.status.form</field>
+            <field name="model">hr.status</field>
+            <field name="inherit_id" ref="ka_hr_pegawai.view_hr_status_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='hr']" position="after">
+                    <group string="Setting Penggajian">
+                        <group>
+                            <field name="is_default_payroll"/>
+                            <field name="is_multiply_konjungtur"/>
+                            <field name="is_daily_pay"/>
+                            <field name="is_gaji_proportion"/>
+                        </group>
+                        <group>
+                            <field name="is_thr"/>
+                            <field name="thr_multiply"/>
+                            <field name="is_tunjangan_cuti"/>
+                            <field name="cuti_multiply"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- <record model="ir.ui.view" id="view_hr_status_search">
+            <field name="name">ka_hr_payroll.status.search</field>
+            <field name="model">hr.status</field>
+            <field name="inherit_id" ref="ka_hr_pegawai.view_hr_status_search"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="is_default_payroll"/>
+                    <field name="is_multiply_konjungtur"/>
+                    <field name="is_daily_pay"/>
+                    <field name="is_thr"/>
+                    <field name="is_cuti_multiply"/>
+                </field>
+            </field>
+        </record> -->
+    </data>
+</odoo>

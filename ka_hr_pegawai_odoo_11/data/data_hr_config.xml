@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data noupdate="1">
+        <!-- Default data of hr.config -->
+        <record model="hr.config" id="hr.hr_config_1">
+            <field name="hr_status_direksi_id" ref="hr.hr_status_01"/>
+            <field name="hr_status_staf_id" ref="hr.hr_status_07"/>
+            <field name="hr_status_pelaksana_id" ref="hr.hr_status_10"/>
+            <field name="hr_pensiun_age">55</field>
+            <field name="hr_mpp_month">4</field>
+        </record>
+    </data>
+</odoo>

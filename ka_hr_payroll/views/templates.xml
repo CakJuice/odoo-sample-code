@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+View root menu templates
+
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <menuitem id="menu_root" name="Penggajian" sequence="45" web_icon="hr_payroll,static/description/icon.png" groups="hr.group_hr_user"/>
+        <menuitem id="menu_penerimaan" name="Penerimaan" parent="menu_root" sequence="2" groups="hr.group_hr_user"/>
+        <menuitem id="menu_rapel" name="Rapel" parent="menu_root" sequence="3" groups="hr.group_hr_user"/>
+        <menuitem id="menu_report" name="Laporan" parent="menu_root" sequence="9" groups="hr.group_hr_user"/>
+        <menuitem id="menu_config" name="Konfigurasi" parent="menu_root" sequence="10" groups="hr.group_hr_user"/>
+
+        <menuitem id="menu_rapel_company" name="Rapel Unit/PG" parent="menu_rapel" sequence="1" groups="hr.group_hr_user"/>
+        <menuitem id="menu_rapel_employee" name="Rapel Karyawan" parent="menu_rapel" sequence="2" groups="hr.group_hr_user"/>
+    </data>
+</odoo>

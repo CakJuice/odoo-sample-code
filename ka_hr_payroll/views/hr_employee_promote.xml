@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <!-- View inherit of `hr.employee.promote` -->
+        <record model="ir.ui.view" id="view_employee_promote_form">
+            <field name="name">hr.employee.promote.form</field>
+            <field name="model">hr.employee.promote</field>
+            <field name="inherit_id" ref="ka_hr_pegawai.view_employee_promote_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_approve']" position="after">
+                    <button name="action_done" type="object" string="Proses Rapel" attrs="{'invisible': ['|', ('promote_type', '=', '2'), ('state', '!=', 'rapel')]}" class="oe_highlight" confirm="Lakukan proses rapel?"/>
+                </xpath>
+                <xpath expr="//button[@name='action_draft']" position="replace">
+                    <button name="action_draft" type="object" string="Set ke draft" attrs="{'invisible': ['|', ('promote_type', '=', '2'), ('state', '!=', 'processed')]}" confirm="Anda yakin ingin mengembalikan ke draft?"/>
+                </xpath>
+                <xpath expr="//button[@name='action_process']" position="replace">
+                    <button name="action_process" type="object" string="Proses" class="oe_highlight" attrs="{'invisible': ['|', ('promote_type', '=', '2'), ('state', '!=', 'draft')]}" confirm="Lakukan proses promosi?"/>
+                </xpath>
+                <xpath expr="//button[@name='action_approve']" position="replace">
+                    <button name="action_approve" type="object" string="Setujui" attrs="{'invisible': ['|', ('promote_type', '=', '2'), ('state', '!=', 'processed')]}" class="oe_highlight" confirm="Lakukan persetujuan promosi?"/>
+                </xpath>
+                <xpath expr="//button[@name='action_cancel']" position="replace">
+                    <button name="action_cancel" type="object" string="Batalkan" attrs="{'invisible': ['|', ('promote_type', '=', '2'), ('state', 'not in', ['draft', 'processed'])]}" confirm="Batalkan history promosi ini?"/>
+                </xpath>
+                <field name="date_done" position="after">
+                    <field name="state_rapel"/>
+                    <field name="rapel_id"/>
+                    <!-- <field name="periodic_promote_id"/> -->
+                </field>
+                <field name="status_id" position="after">
+                    <field name="scale" attrs="{'readonly': [('promote_type', 'in', ['6', '7', '8', '9'])], 'required': [('promote_type', 'in', ['1', '2', '3', '4'])]}"/>
+                    <!-- <field name="japres"/> -->
+                </field>
+                <field name="old_status_id" position="after">
+                    <field name="old_scale"/>
+                    <!-- <field name="old_japres"/> -->
+                </field>
+                <field name="old_promote_id" position="after">
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

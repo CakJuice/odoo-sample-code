@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record model="ir.ui.view" id="hr_document_kerjasama_filter">
+        <field name="name">hr.document.kerjasama.filter</field>
+        <field name="model">hr.document.kerjasama</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Pencarian">
+                <field name="nomor"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="kerjasama_form_view">
+        <field name="name">hr.document.kerjasama.form</field>
+        <field name="model">hr.document.kerjasama</field>
+        <field name="arch" type="xml">
+            <form string="Kerjasama Form">
+                <sheet>
+                    <h2 colspan="2">Perjanjian Kerjasama</h2>
+                    <div class="oe_button_box" name="buttons" groups="base.group_user">
+                        <button class="oe_inline oe_stat_button" name="attachment_tree_view" type="object"
+                                icon="fa-files-o">
+                            <field string="Attachments" name="doc_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <hr/>
+                    <group>
+                        <field name="nomor" style="width:35%%"/>
+                        <field name="tanggal_mulai" style="width:35%%"/>
+                        <field name="tanggal_akhir" style="width:35%%"/>
+                        <field name="partner_id" style="width:50%%" domain="[('supplier','=',True)]"/>
+                        <field name="isi_perjanjian"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                    <notebook>
+                        <page string="Catatan">
+                            <field name="catatan"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="kerjasama_tree_view">
+        <field name="name">hr.document.kerjasama.tree</field>
+        <field name="model">hr.document.kerjasama</field>
+        <field name="arch" type="xml">
+            <tree string="Kerjasama Tree">
+                <field name="nomor"/>
+                <field name="tanggal_mulai"/>
+                <field name="tanggal_akhir"/>
+                <field name="partner_id"/>
+                <field name="isi_perjanjian"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_open_document_kerjasama" model="ir.actions.act_window">
+        <field name="name">Dokumen Perjanjian Kerjasama</field>
+        <field name="res_model">hr.document.kerjasama</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Data masih kosong, input data terlebih dahulu!</p>
+        </field>
+    </record>
+
+    <menuitem action="action_open_document_kerjasama" id="menu_hr_kerjasama" name="Perjanjian Kerjasama"
+              parent="sub_menu_document" sequence="3" groups="hr.group_hr_user"/>
+</odoo>

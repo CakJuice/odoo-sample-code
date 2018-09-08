@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+        <menuitem id="menu_dinas" name="Biaya Dinas" parent="menu_penerimaan" sequence="6"
+                  groups="ka_hr_payroll.group_user"/>
+
+        <!-- View `ka_hr_payroll.dinas.master` -->
+        <record model="ir.ui.view" id="view_dinas_master_tree">
+            <field name="name">dinas.master.tree</field>
+            <field name="model">ka_hr_payroll.dinas.master</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="account_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_dinas_master_form">
+            <field name="name">dinas.master.form</field>
+            <field name="model">ka_hr_payroll.dinas.master</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="code"/>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="account_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_dinas_master_search">
+            <field name="name">dinas.master.search</field>
+            <field name="model">ka_hr_payroll.dinas.master</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="account_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_dinas_master">
+            <field name="name">Master Biaya Dinas</field>
+            <field name="res_model">ka_hr_payroll.dinas.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_dinas_master" id="menu_dinas_master" parent="menu_dinas" sequence="1"
+                  groups="ka_hr_payroll.group_user"/>
+
+        <!-- View `ka_hr_payroll.dinas.period` -->
+        <record model="ir.ui.view" id="view_dinas_period_tree">
+            <field name="name">dinas.period.tree</field>
+            <field name="model">ka_hr_payroll.dinas.period</field>
+            <field name="arch" type="xml">
+                <tree decoration-bf="state=='draft'" decoration-primary="state=='done'"
+                      decoration-muted="state=='canceled'">
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="status_id"/>
+                    <field name="state"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_dinas_period_form">
+            <field name="name">dinas.period.form</field>
+            <field name="model">ka_hr_payroll.dinas.period</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_done" type="object" string="Setujui" states="draft"
+                                confirm="Lakukan persetujuan periode dinas?" class="oe_highlight"/>
+                        <button name="action_cancel" type="object" string="Batalkan" states="draft"
+                                confirm="Batalkan periode dinas ini?"/>
+                        <button name="action_draft" type="object" string="Set ke draft" states="done,canceled"
+                                confirm="Anda yakin ingin mengembalikan ke draft?"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Nama"/>
+                            </h1>
+                        </div>
+                        <div class="oe_button_box">
+                            <button name="action_view_detail" type="object" string="Data Detail"
+                                    groups="ka_hr_payroll.group_user" class="oe_stat_button" icon="fa-list"/>
+                            <button name="action_create_detail" type="object" string="Detail Baru" states="draft"
+                                    groups="ka_hr_payroll.group_user" class="oe_stat_button" icon="fa-plus-circle"/>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date_start"/>
+                                <field name="status_id"/>
+                                <field name="is_all_status_id"/>
+                            </group>
+                            <group>
+                                <field name="no_sk"/>
+                                <field name="date_approve"/>
+                                <field name="company_payroll_id" groups="base.group_multi_company"/>
+                            </group>
+                            <field name="notes"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_dinas_period_search">
+            <field name="name">dinas.period.search</field>
+            <field name="model">ka_hr_payroll.dinas.period</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="status_id"/>
+                    <field name="state"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_dinas_period">
+            <field name="name">Biaya Perjalanan Dinas</field>
+            <field name="res_model">ka_hr_payroll.dinas.period</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_dinas_period" id="menu_dinas_period" parent="menu_dinas" sequence="2"
+                  groups="ka_hr_payroll.group_user"/>
+
+        <!-- View `ka_hr_payroll.dinas.detail` -->
+        <record model="ir.ui.view" id="view_dinas_detail_tree">
+            <field name="name">dinas.detail.tree</field>
+            <field name="model">ka_hr_payroll.dinas.detail</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="dinas_type"/>
+                    <field name="jabatan_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_dinas_detail_form">
+            <field name="name">dinas.detail.form</field>
+            <field name="model">ka_hr_payroll.dinas.detail</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="period_state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Nama Detail"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="period_id" attrs="{'readonly': [('period_state', '!=', 'draft')]}"/>
+                                <field name="dinas_type" attrs="{'readonly': [('period_state', '!=', 'draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="is_all_status_id" readonly="True"/>
+                                <field name="jabatan_ids" widget="many2many_tags"
+                                       attrs="{'invisible': [('is_all_status_id', '=', True)], 'readonly': [('period_state', '!=', 'draft')]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Detail">
+                                <field name="child_ids" attrs="{'readonly': [('period_state', '!=', 'draft')]}">
+                                    <tree editable="bottom">
+                                        <field name="master_id"/>
+                                        <field name="is_daily"/>
+                                        <field name="value"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                        <!--<group>-->
+                        <!--<group string="Uang Saku">-->
+                        <!--<field name="uang_saku"/>-->
+                        <!--<field name="is_daily_uang_saku"/>-->
+                        <!--</group>-->
+                        <!--<group string="Uang Makan">-->
+                        <!--<field name="uang_makan"/>-->
+                        <!--<field name="is_daily_uang_makan"/>-->
+                        <!--</group>-->
+                        <!--</group>-->
+                        <!--<group>-->
+                        <!--<group string="Uang Cuci">-->
+                        <!--<field name="uang_cuci"/>-->
+                        <!--<field name="is_daily_uang_cuci"/>-->
+                        <!--</group>-->
+                        <!--<group string="Uang Penginapan">-->
+                        <!--<field name="uang_penginapan"/>-->
+                        <!--<field name="is_daily_uang_penginapan"/>-->
+                        <!--</group>-->
+                        <!--</group>-->
+                        <!--<group>-->
+                        <!--<group string="Uang Pesawat">-->
+                        <!--<field name="uang_pesawat"/>-->
+                        <!--<field name="is_daily_uang_pesawat"/>-->
+                        <!--</group>-->
+                        <!--<group string="Uang Transport">-->
+                        <!--<field name="uang_transport"/>-->
+                        <!--<field name="is_daily_uang_transport"/>-->
+                        <!--</group>-->
+                        <!--</group>-->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_dinas_detail_search">
+            <field name="name">dinas.detail.search</field>
+            <field name="model">ka_hr_payroll.dinas.detail</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="dinas_type"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_dinas_detail">
+            <field name="name">Detail Biaya Perjalanan Dinas</field>
+            <field name="res_model">ka_hr_payroll.dinas.detail</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

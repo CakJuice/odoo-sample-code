@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+View of ka_hr_payroll.recap.report.wizard
+
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="wizard_recap_report_form">
+            <field name="name">ka_hr_payroll.recap.report.wizard.form</field>
+            <field name="model">ka_hr_payroll.recap.report.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="year_period"/>
+                        <field name="month_period"/>
+                        <field name="status_id"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="company_payroll_id" groups="base.group_multi_company"/>
+                    </group>
+                    <footer>
+                        <button name="generate_report" string="Cetak Rekap" type="object" class="oe_highlight"/>
+                        <button string="Batal" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window
+            id="action_wizard_recap_report"
+            name="Cetak Rekap Gaji"
+            res_model="ka_hr_payroll.recap.report.wizard"
+            view_mode="form"
+            target="new"/>
+
+        <menuitem action="action_wizard_recap_report" id="menu_wizard_recap_report" parent="menu_report" sequence="2" groups="hr.group_hr_user"/>
+    </data>
+</odoo>

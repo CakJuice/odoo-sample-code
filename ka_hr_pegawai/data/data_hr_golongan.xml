@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Data of hr.golongan
+
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data noupdate="1">
+        <record model="hr.golongan" id="data_hr_golongan_1">
+            <field name="name">I</field>
+        </record>
+        <record model="hr.golongan" id="data_hr_golongan_2">
+            <field name="name">II</field>
+        </record>
+        <record model="hr.golongan" id="data_hr_golongan_3">
+            <field name="name">III</field>
+        </record>
+        <record model="hr.golongan" id="data_hr_golongan_4">
+            <field name="name">IV</field>
+        </record>
+        <record model="hr.golongan" id="data_hr_golongan_5">
+            <field name="name">V</field>
+        </record>
+        <record model="hr.golongan" id="data_hr_golongan_6">
+            <field name="name">VI</field>
+        </record>
+        <record model="hr.golongan" id="data_hr_golongan_7">
+            <field name="name">VII</field>
+        </record>
+    </data>
+</odoo>

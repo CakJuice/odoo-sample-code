@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_employee_dinas_form">
+            <field name="name">ka_hr_payroll.employee.dinas.form</field>
+            <field name="model">ka_hr_payroll.employee.dinas</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Setujui" name="action_done" type="object" states="draft"
+                                groups="ka_hr_payroll.group_user" class="oe_highlight"
+                                confirm="Setujui pengajuan ini?"/>
+                        <button string="Set ke Draft" name="action_draft" type="object" states="canceled"
+                                groups="ka_hr_payroll.group_user" confirm="Kembalikan ke draft?"/>
+                        <button string="Batalkan" name="action_cancel" type="object" states="draft,done"
+                                groups="ka_hr_payroll.group_user" confirm="Anda yakin ingin membatalkan?"/>
+                        <button name="%(ka_hr_payroll.employee_dinas_slip_report)d" type="action" string="Cetak Slip"
+                                class="oe_highlight" icon="fa-print" groups="ka_hr_payroll.group_employee"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Nama Biaya"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date_pay"/>
+                                <field name="holiday_id"/>
+                                <field name="employee_id"/>
+                                <field name="nomor_dinas"/>
+                                <field name="duration"/>
+                            </group>
+                            <group>
+                                <field name="dinas_period_id"/>
+                                <field name="dinas_type"/>
+                                <field name="dinas_detail_id"/>
+                                <field name="company_payroll_id"/>
+                                <field name="grand_total"/>
+                            </group>
+                            <field name="notes"/>
+                        </group>
+                        <notebook>
+                            <page string="Detail Penerimaan">
+                                <field name="child_ids">
+                                    <tree editable="bottom">
+                                        <field name="detail_child_id" invisible="1"/>
+                                        <field name="dinas_master_id"/>
+                                        <field name="is_daily"/>
+                                        <field name="value"/>
+                                        <field name="prosentase"/>
+                                        <field name="total"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_employee_dinas">
+            <field name="name">Biaya Dinas Karyawan</field>
+            <field name="res_model">ka_hr_payroll.employee.dinas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+    </data>
+</odoo>

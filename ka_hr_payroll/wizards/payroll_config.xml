@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+View of ka_hr_payroll.company.config.wizard
+
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="wizard_config_form">
+            <field name="name">SDM - Setting Payroll</field>
+            <field name="model">ka_hr_payroll.config.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="SDM - Setting Payroll">
+                    <field name="config_id" invisible="1"/>
+                    <group string="Setting Gaji Bulanan">
+                        <group>
+                            <field name="date_start"/>
+                        </group>
+                        <group>
+                            <field name="date_end"/>
+                            <!-- <field name="is_gaji_proportion"/> -->
+                        </group>
+                    </group>
+                    <group string="Setting THR">
+                        <group>
+                            <field name="min_month_thr_proportion"/>
+                            <field name="min_month_thr_full"/>
+                        </group>
+                        <group>
+                            <field name="month_thr_proportion_value"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="save_data" string="Simpan Data" type="object" class="btn-primary"/>
+                        <button string="Batal" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window
+            id="action_wizard_config"
+            name="Setting Penggajian"
+            res_model="ka_hr_payroll.config.wizard"
+            view_mode="form"
+            target="new"/>
+
+        <menuitem action="action_wizard_config" id="menu_wizard_config" parent="menu_config" sequence="10" groups="hr.group_hr_user"/>
+    </data>
+</odoo>

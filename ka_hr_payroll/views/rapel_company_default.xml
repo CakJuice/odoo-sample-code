@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <!-- View of `ka_hr_payroll.rapel.company.default` -->
+        <record model="ir.ui.view" id="view_rapel_company_default_tree">
+            <field name="name">ka_hr_payroll.rapel.company.default.tree</field>
+            <field name="model">ka_hr_payroll.rapel.company.default</field>
+            <field name="arch" type="xml">
+                <tree create="false" edit="false" decoration-success="state=='approved'" decoration-primary="state=='done'">
+                    <field name="name"/>
+                    <field name="new_company_default_id"/>
+                    <field name="old_company_default_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="rapel_pay"/>
+                    <field name="state"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_rapel_company_default_form">
+            <field name="name">ka_hr_payroll.rapel.company.default.form</field>
+            <field name="model">ka_hr_payroll.rapel.company.default</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Nama Rapel"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="new_company_default_id"/>
+                                <field name="old_company_default_id"/>
+                                <field name="status_id"/>
+                                <field name="company_payroll_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <label for="month_pay" string="Rapel Bayar"/>
+                                <div>
+                                    <div>
+                                        <field name="month_pay" class="oe_inline"/>
+                                        <label string=" " class="oe_inline"/>
+                                        <field name="year_pay" class="oe_inline"/>
+                                    </div>
+                                </div>
+                                <field name="date_done"/>
+                                <field name="payroll_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Detail">
+                                <group>
+                                    <group string="Data Baru">
+                                        <field name="new_gaji_pokok"/>
+                                        <field name="new_tunjangan_rumah"/>
+                                        <field name="new_tunjangan_jabatan"/>
+                                        <field name="new_tunjangan_khusus"/>
+                                        <field name="new_tunjangan_representasi"/>
+                                    </group>
+                                    <group string="Data Lama">
+                                        <field name="old_gaji_pokok"/>
+                                        <field name="old_tunjangan_rumah"/>
+                                        <field name="old_tunjangan_jabatan"/>
+                                        <field name="old_tunjangan_khusus"/>
+                                        <field name="old_tunjangan_representasi"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_rapel_company_default_search">
+            <field name="name">ka_hr_payroll.rapel.company.default.search</field>
+            <field name="model">ka_hr_payroll.rapel.company.default</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="new_company_default_id"/>
+                    <field name="old_company_default_id"/>
+                    <field name="state"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_rapel_company_default">
+            <field name="name">Rapel Ketetapan Gaji</field>
+            <field name="res_model">ka_hr_payroll.rapel.company.default</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_rapel_company_default" id="rapel_rapel_company_default" parent="menu_rapel_company" sequence="7" groups="hr.group_hr_user"/>
+    </data>
+</odoo>

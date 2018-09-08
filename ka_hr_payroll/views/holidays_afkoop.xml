@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <!-- View of `ka_hr.holidays.afkoop` -->
+        <record model="ir.ui.view" id="view_holidays_afkoop_tree">
+            <field name="name">ka_hr_payroll.holidays.afkoop.tree</field>
+            <field name="model">ka_hr.holidays.afkoop</field>
+            <field name="inherit_id" ref="ka_hr_holidays.view_holidays_afkoop_tree"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="replace">
+                    <field name="total_multiply"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_holidays_afkoop_form">
+            <field name="name">ka_hr_payroll.holidays.afkoop.form</field>
+            <field name="model">ka_hr.holidays.afkoop</field>
+            <field name="inherit_id" ref="ka_hr_holidays.view_holidays_afkoop_form"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <button name="%(ka_hr_payroll.holidays_afkoop_slip_report)d" type="action" string="Cetak Slip" class="oe_highlight" states="approved" icon="fa-print" groups="hr.group_hr_user"/>
+                </field>
+                <field name="company_id" position="replace">
+                    <field name="company_id"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </field>
+                <xpath expr="//sheet" position="inside">
+                    <notebook>
+                        <page string="Detail Afkoop">
+                            <group>
+                                <group>
+                                    <field name="employee_gaji_pokok"/>
+                                    <field name="is_multiply_konjungtur"/>
+                                    <field name="konjungtur_gaji" attrs="{'invisible': [('is_multiply_konjungtur', '=', False)]}"/>
+                                </group>
+                                <group>
+                                    <field name="employee_gapok_total"/>
+                                    <label for="is_tunjangan_rumah" string="Tunj. Ramah"/>
+                                    <div>
+                                        <div>
+                                            <field name="is_tunjangan_rumah" class="oe_inline"/>
+                                            <label string=" " class="oe_inline"/>
+                                            <field name="employee_tunjangan_rumah" class="oe_inline"/>
+                                        </div>
+                                    </div>
+                                    <label for="is_tunjangan_jabatan" string="Tunj. Jabatan"/>
+                                    <div>
+                                        <div>
+                                            <field name="is_tunjangan_jabatan" class="oe_inline"/>
+                                            <label string=" " class="oe_inline"/>
+                                            <field name="employee_tunjangan_jabatan" class="oe_inline"/>
+                                        </div>
+                                    </div>
+                                    <label for="is_tunjangan_khusus" string="Tunj. Khusus"/>
+                                    <div>
+                                        <div>
+                                            <field name="is_tunjangan_khusus" class="oe_inline"/>
+                                            <label string=" " class="oe_inline"/>
+                                            <field name="employee_tunjangan_khusus" class="oe_inline"/>
+                                        </div>
+                                    </div>
+                                    <label for="is_tunjangan_representasi" string="Tunj. Representasi"/>
+                                    <div>
+                                        <div>
+                                            <field name="is_tunjangan_representasi" class="oe_inline"/>
+                                            <label string=" " class="oe_inline"/>
+                                            <field name="employee_tunjangan_representasi" class="oe_inline"/>
+                                        </div>
+                                    </div>
+                                    <field name="total_multiply"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Ref. Pembayar Rapel">
+                            <field name="rapel_ref_ids">
+                                <tree>
+                                    <field name="payroll_rapel_pay_id"/>
+                                    <field name="afkoop_rapel_value"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+
+        <menuitem action="ka_hr_holidays.action_view_holidays_afkoop" id="menu_payroll_view_holidays_afkoop" parent="menu_payroll" sequence="4" groups="hr.group_hr_user"/>
+    </data>
+</odoo>

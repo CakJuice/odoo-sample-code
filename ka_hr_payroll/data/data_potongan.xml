@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Default data of ka_hr_payroll.config
+
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data noupdate="1">
+        <record model="ka_hr_payroll.potongan" id="ka_hr_payroll.potongan_01">
+            <field name="name">BPJS Ktngakerjaan JHT</field>
+            <field name="code">01</field>
+            <field name="prosentase" eval="2.00"/>
+            <field name="company_payroll_id" ref="base.kantor_direksi"/>
+        </record>
+        <record model="ka_hr_payroll.potongan" id="ka_hr_payroll.potongan_02">
+            <field name="name">YKKA</field>
+            <field name="code">02</field>
+            <field name="prosentase" eval="2.60"/>
+            <field name="company_payroll_id" ref="base.kantor_direksi"/>
+        </record>
+        <record model="ka_hr_payroll.potongan" id="ka_hr_payroll.potongan_03">
+            <field name="name">BPJS Pensiun</field>
+            <field name="code">03</field>
+            <field name="prosentase" eval="3.00"/>
+            <field name="is_max_value" eval="True"/>
+            <field name="max_value" eval="242820"/>
+            <field name="company_payroll_id" ref="base.kantor_direksi"/>
+        </record>
+        <record model="ka_hr_payroll.potongan" id="ka_hr_payroll.potongan_04">
+            <field name="name">BPJS Kesehatan</field>
+            <field name="code">04</field>
+            <field name="prosentase" eval="5.00"/>
+            <field name="is_max_value" eval="True"/>
+            <field name="max_value" eval="236250"/>
+            <field name="company_payroll_id" ref="base.kantor_direksi"/>
+        </record>
+        <record model="ka_hr_payroll.potongan" id="ka_hr_payroll.potongan_05">
+            <field name="name">DAPEN KA</field>
+            <field name="code">05</field>
+            <field name="prosentase" eval="5.00"/>
+            <field name="company_payroll_id" ref="base.kantor_direksi"/>
+        </record>
+        <record model="ka_hr_payroll.potongan" id="ka_hr_payroll.potongan_06">
+            <field name="name">DAPEN BRI</field>
+            <field name="code">06</field>
+            <field name="prosentase" eval="5.00"/>
+            <field name="company_payroll_id" ref="base.kantor_direksi"/>
+        </record>
+    </data>
+</odoo>

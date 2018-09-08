@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <!-- View of `hr.employee` -->
+        <record model="ir.ui.view" id="view_hr_employee_form_inherit">
+            <field name="name">hr.employee.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="ka_hr_pegawai.view_ka_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <button name="action_view_payroll" type="object" string="Data Gaji"
+                            groups="ka_hr_payroll.group_employee"
+                            attrs="{'invisible': [('is_user', '=', False), ('is_officer', '=', False)]}"
+                            class="oe_stat_button" icon="fa-money"/>
+                    <button name="action_view_tunjangan_holidays" type="object" string="Tunjangan Cuti"
+                            groups="ka_hr_payroll.group_employee"
+                            attrs="{'invisible': [('is_user', '=', False), ('is_officer', '=', False)]}"
+                            class="oe_stat_button" icon="fa-money"/>
+                    <button name="action_view_afkoop" type="object" string="Afkoop"
+                            groups="ka_hr_payroll.group_employee"
+                            attrs="{'invisible': [('is_user', '=', False), ('is_officer', '=', False)]}"
+                            class="oe_stat_button" icon="fa-money"/>
+                </xpath>
+
+                <xpath expr="/form/sheet/notebook/page[3]" position="after">
+                    <page string="Data Penggajian" groups="ka_hr_payroll.group_user">
+                        <group>
+                            <group>
+                                <field name="company_payroll_id"/>
+                                <field name="payroll_department_id"/>
+                                <field name="payroll_jabatan_id"/>
+                                <field name="payroll_pangkat_id"/>
+                                <field name="payroll_golongan_id"/>
+                                <field name="payroll_golongan_khusus_id"/>
+                                <field name="payroll_status_id"/>
+                                <field name="payroll_company_id"/>
+                                <field name="scale"/>
+                                <!-- <field name="japres"/> -->
+                            </group>
+                            <group>
+                                <field name="gaji_pokok"/>
+                                <field name="tunjangan_rumah"/>
+                                <field name="tunjangan_jabatan"/>
+                                <field name="tunjangan_khusus"/>
+                                <field name="tunjangan_representasi"/>
+                            </group>
+                        </group>
+                        <field name="potongan_ids">
+                            <tree editable="bottom">
+                                <field name="potongan_id"/>
+                                <field name="is_multiply_konjungtur"/>
+                                <field name="konjungtur_type"
+                                       attrs="{'required': [('is_multiply_konjungtur', '=', True)]}"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

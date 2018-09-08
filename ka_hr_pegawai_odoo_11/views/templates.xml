@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <menuitem id="main_menu_sdm" name="SDM" sequence="11" web_icon="ka_hr_pegawai,static/description/icon.png"/>
+    <menuitem id="sub_menu_sdm" name="Sumber Daya Manusia" parent="main_menu_sdm" sequence="1"/>
+    <menuitem id="sub_menu_kepegawaian" name="Kepegawaian" parent="main_menu_sdm" sequence="2"/>
+    <menuitem id="sub_menu_master" name="Data Master" parent="main_menu_sdm" sequence="3"/>
+    <menuitem id="sub_menu_document" name="Dokumen" parent="main_menu_sdm" sequence="4"/>
+    <menuitem id="sub_menu_config" name="Konfigurasi" parent="main_menu_sdm" sequence="5"/>
+    <menuitem action="hr.open_module_tree_department" id="menu_hr_configuration_department_tree" parent="sub_menu_master" sequence="1"/>
+
+    <menuitem action="ka_base_wilayah.action_provinsi" id="menu_res_provinsi" parent="sub_menu_config" sequence="6"/>
+    <menuitem action="ka_base_wilayah.action_kabupaten" id="menu_res_kabupaten" parent="sub_menu_config" sequence="7"/>
+    <menuitem action="ka_base_wilayah.action_kecamatan" id="menu_res_kecamatan" parent="sub_menu_config" sequence="8"/>
+    <menuitem action="ka_base_wilayah.action_desa_kelurahan" id="menu_res_desa" parent="sub_menu_config" sequence="9"/>
+</odoo>

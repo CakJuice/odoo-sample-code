@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Template report of `report.ka_hr_payroll.payroll_recap_view`.
+Wizard name `ka_hr_payroll.recap.report.wizard`.
+
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <report id="payroll_recap_report"
+            model="ka_hr_payroll.recap.report.wizard"
+            string="Rekap Gaji Karyawan"
+            report_type="qweb-pdf"
+            name="ka_hr_payroll.payroll_recap_report_view"
+            file="ka_hr_payroll.payroll_recap_report"
+            menu="False"/>
+
+        <record model="report.paperformat" id="paperformat_payroll_recap_report">
+            <field name="name">Laporan Rekap Gaji Karyawan</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_width">352</field>
+			<field name="page_height">279</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">20</field>
+			<field name="margin_right">7</field>
+			<field name="margin_bottom">15</field>
+			<field name="margin_left">7</field>
+			<field name="header_line" eval="False"/>
+			<field name="header_spacing">12</field>
+			<field name="dpi">90</field>
+        </record>
+
+        <record model="ir.actions.report.xml" id="ka_hr_payroll.payroll_recap_report">
+            <field name="paperformat_id" ref="paperformat_payroll_recap_report"/>
+        </record>
+
+        <template id="payroll_recap_report_view">
+            <t t-call="report.html_container">
+                <div class="header" style="font-size: 14px; border-bottom: solid 1px black">
+                    <img src="ka_hr_payroll/static/img/small_logo.png" style="height: 40px; position: fixed"/>
+                    <div class="text-center">
+                        <strong>Daftar Gaji Karyawan Bulan <span t-esc="periode_name"/></strong>
+                        <br/>
+                        <strong>Unit: <span t-esc="company_name"/></strong>
+                    </div>
+                    <div style="position: fixed; top: 17px; right: 10px">
+						<ul class="list-inline">
+							<li>Hal:</li>
+							<li><span class="page"/></li>
+							<li>/</li>
+							<li><span class="topage"/></li>
+						</ul>
+					</div>
+                </div>
+
+                <div class="page" style="font-size: 12px;">
+                    <style>
+                        .table-bordered {
+                            border: 1px solid black;
+                        }
+
+                        th {
+                            padding: 3px;
+                            word-wrap: break-word;
+                            vertical-align: middle;
+                        }
+
+                        td {
+                            padding: 2px;
+                        }
+
+                        .td-value {
+                            width: 6%;
+                        }
+                    </style>
+
+                    <t t-set="pot_len" t-value="len(potongan)"/>
+                    <table style="width: 100%;">
+                        <thead style="@media print {thead {display: table-header-group;}};">
+                            <tr>
+                                <th rowspan="2" style="width: 2%" class="text-center table-bordered">No.</th>
+                                <th rowspan="2" style="width: 14%" class="text-center table-bordered">Nama Karyawan</th>
+                                <th rowspan="2" class="text-center table-bordered">Gaji Pokok</th>
+                                <th rowspan="2" class="text-center table-bordered">Penerimaan Bruto (1)</th>
+                                <th rowspan="2" class="text-center table-bordered">Tunjangan Rumah</th>
+                                <th rowspan="2" class="text-center table-bordered">Tunjangan Jabatan</th>
+                                <th rowspan="2" class="text-center table-bordered">Tunjangan Khusus</th>
+                                <th rowspan="2" class="text-center table-bordered">Tunjangan Representasi</th>
+                                <th rowspan="2" class="text-center table-bordered">Rapel dll.</th>
+                                <th rowspan="2" class="text-center table-bordered">Penerimaan Bruto (2)</th>
+                                <th t-att-colspan="pot_len" class="text-center table-bordered">Potongan</th>
+                            </tr>
+                            <tr>
+                                <t t-foreach="potongan" t-as="pot">
+                                    <th class="text-center table-bordered">
+                                        <t t-esc="pot"/>
+                                    </th>
+                                </t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="doc">
+                                <t t-if="is_direksi">
+                                    <tr>
+                                        <td class="text-center">
+                                            <span t-esc="doc_index + 1"/>
+                                        </td>
+                                        <td><span t-esc="doc['name']"/></td>
+                                        <td class="text-right td-value">
+                                            <span t-esc="model.formatting_currency(doc['gapok'])"/>
+                                        </td>
+                                        <td class="text-right td-value">
+                                            <span t-esc="model.formatting_currency(doc['gapok_total'])"/>
+                                        </td>
+                                        <td class="text-right td-value">
+                                            <span t-esc="model.formatting_currency(doc['tunjangan_rumah'])"/>
+                                        </td>
+                                        <td class="text-right td-value">
+                                            <span t-esc="model.formatting_currency(doc['tunjangan_jabatan'])"/>
+                                        </td>
+                                        <td class="text-right td-value">
+                                            <span t-esc="model.formatting_currency(doc['tunjangan_khusus'])"/>
+                                        </td>
+                                        <td class="text-right td-value">
+                                            <span t-esc="model.formatting_currency(doc['tunjangan_representasi'])"/>
+                                        </td>
+                                        <td class="text-right td-value">
+                                            <span t-esc="model.formatting_currency(doc['rapel'])"></span>
+                                        </td>
+                                        <td class="text-right td-value">
+                                            <span t-esc="model.formatting_currency(doc['total_penerimaan'])"/>
+                                        </td>
+                                        <t t-foreach="doc['potongan']" t-as="potongan">
+                                            <td class="text-right td-value">
+                                                <span t-esc="model.formatting_currency(potongan)"/>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </t>
+                                <t t-else="">
+                                    <t t-if="doc['payroll']">
+                                        <tr>
+                                            <th colspan="2"><span t-esc="doc['department']"/></th>
+                                        </tr>
+                                        <t t-foreach="doc['payroll']" t-as="payroll">
+                                            <tr>
+                                                <td class="text-center">
+                                                    <span t-esc="payroll_index + 1"/>
+                                                </td>
+                                                <td><span t-esc="payroll['name']"/></td>
+                                                <td class="text-right td-value">
+                                                    <span t-esc="model.formatting_currency(payroll['gapok'])"/>
+                                                </td>
+                                                <td class="text-right td-value">
+                                                    <span t-esc="model.formatting_currency(payroll['gapok_total'])"/>
+                                                </td>
+                                                <td class="text-right td-value">
+                                                    <span t-esc="model.formatting_currency(payroll['tunjangan_rumah'])"/>
+                                                </td>
+                                                <td class="text-right td-value">
+                                                    <span t-esc="model.formatting_currency(payroll['tunjangan_jabatan'])"/>
+                                                </td>
+                                                <td class="text-right td-value">
+                                                    <span t-esc="model.formatting_currency(payroll['tunjangan_khusus'])"/>
+                                                </td>
+                                                <td class="text-right td-value">
+                                                    <span t-esc="model.formatting_currency(payroll['tunjangan_representasi'])"/>
+                                                </td>
+                                                <td class="text-right td-value">
+                                                    <span t-esc="model.formatting_currency(payroll['rapel'])"></span>
+                                                </td>
+                                                <td class="text-right td-value">
+                                                    <span t-esc="model.formatting_currency(payroll['total_penerimaan'])"/>
+                                                </td>
+                                                <t t-foreach="payroll['potongan']" t-as="potongan">
+                                                    <td class="text-right td-value">
+                                                        <span t-esc="model.formatting_currency(potongan)"/>
+                                                    </td>
+                                                </t>
+                                            </tr>
+                                        </t>
+                                        <tr style="border-top: 1px solid black">
+                                            <td><![CDATA[&nbsp;]]></td>
+                                            <td><![CDATA[&nbsp;]]></td>
+                                            <td class="text-right td-value">
+                                                <strong><span t-esc="model.formatting_currency(doc['sub_total']['gapok'])"/></strong>
+                                            </td>
+                                            <td class="text-right td-value">
+                                                <strong><span t-esc="model.formatting_currency(doc['sub_total']['gapok_total'])"/></strong>
+                                            </td>
+                                            <td class="text-right td-value">
+                                                <strong><span t-esc="model.formatting_currency(doc['sub_total']['tunjangan_rumah'])"/></strong>
+                                            </td>
+                                            <td class="text-right td-value">
+                                                <strong><span t-esc="model.formatting_currency(doc['sub_total']['tunjangan_jabatan'])"/></strong>
+                                            </td>
+                                            <td class="text-right td-value">
+                                                <strong><span t-esc="model.formatting_currency(doc['sub_total']['tunjangan_khusus'])"/></strong>
+                                            </td>
+                                            <td class="text-right td-value">
+                                                <strong><span t-esc="model.formatting_currency(doc['sub_total']['tunjangan_representasi'])"/></strong>
+                                            </td>
+                                            <td class="text-right td-value">
+                                                <strong><span t-esc="model.formatting_currency(doc['sub_total']['rapel'])"></span></strong>
+                                            </td>
+                                            <td class="text-right td-value">
+                                                <strong><span t-esc="model.formatting_currency(doc['sub_total']['total_penerimaan'])"/></strong>
+                                            </td>
+                                            <t t-foreach="doc['sub_total']['potongan']" t-as="sub_potongan">
+                                                <td class="text-right td-value">
+                                                    <strong><span t-esc="model.formatting_currency(sub_potongan)"/></strong>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="footer" style="font-size: 12px; border-top: 1px solid black">
+                    <style>
+                        td {
+                            padding: 2px;
+                        }
+
+                        .td-value {
+                            width: 6%;
+                        }
+                    </style>
+
+                    <div class="last-page" style="padding-top:10px">
+                        <table style="width: 100%">
+                            <tr>
+                                <td style="width: 2%"><![CDATA[&nbsp;]]></td>
+                                <td style="width: 14%"><![CDATA[&nbsp;]]></td>
+                                <td class="text-right td-value">
+                                    <strong><span t-esc="model.formatting_currency(total['gapok'])"/></strong>
+                                </td>
+                                <td class="text-right td-value">
+                                    <strong><span t-esc="model.formatting_currency(total['gapok_total'])"/></strong>
+                                </td>
+                                <td class="text-right td-value">
+                                    <strong><span t-esc="model.formatting_currency(total['tunjangan_rumah'])"/></strong>
+                                </td>
+                                <td class="text-right td-value">
+                                    <strong><span t-esc="model.formatting_currency(total['tunjangan_jabatan'])"/></strong>
+                                </td>
+                                <td class="text-right td-value">
+                                    <strong><span t-esc="model.formatting_currency(total['tunjangan_khusus'])"/></strong>
+                                </td>
+                                <td class="text-right td-value">
+                                    <strong><span t-esc="model.formatting_currency(total['tunjangan_representasi'])"/></strong>
+                                </td>
+                                <td class="text-right td-value">
+                                    <strong><span t-esc="model.formatting_currency(total['rapel'])"></span></strong>
+                                </td>
+                                <td class="text-right td-value">
+                                    <strong><span t-esc="model.formatting_currency(total['total_penerimaan'])"/></strong>
+                                </td>
+                                <t t-foreach="total['potongan']" t-as="potongan">
+                                    <td class="text-right td-value">
+                                        <strong><span t-esc="model.formatting_currency(potongan)"/></strong>
+                                    </td>
+                                </t>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

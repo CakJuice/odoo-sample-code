@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <!-- View of `ka_hr_payroll.employee.reward` -->
+        <record model="ir.ui.view" id="view_employee_reward_tree">
+            <field name="name">ka_hr_payroll.employee.reward.tree</field>
+            <field name="model">ka_hr_payroll.employee.reward</field>
+            <field name="arch" type="xml">
+                <tree decoration-bf="state=='draft'" decoration-success="state=='processed'"
+                      decoration-primary="state=='approved'" decoration-muted="state=='canceled'">
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="employee_id"/>
+                    <field name="reward_id"/>
+                    <field name="total"/>
+                    <field name="state"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_employee_reward_form">
+            <field name="name">ka_hr_payroll.employee.reward.form</field>
+            <field name="model">ka_hr_payroll.employee.reward</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="reward_type" invisible="1"/>
+                    <header>
+                        <button name="action_draft" type="object" string="Set ke draft" states="processed"
+                                confirm="Anda yakin ingin mengembalikan ke draft?"/>
+                        <button name="action_process" type="object" string="Proses" states="draft" class="oe_highlight"
+                                confirm="Lakukan proses penghargaan karyawan?"/>
+                        <button name="action_approve" type="object" string="Setujui" states="processed"
+                                class="oe_highlight" confirm="Lakukan persetujuan penghargaan ini?"/>
+                        <button name="action_cancel" type="object" string="Batalkan" states="draft,processed"
+                                confirm="Batalkan proses penghargaan ini?"/>
+                        <button name="action_process" type="object" string="Kembali Ke Proses" states="approved"
+                                groups="ka_hr_payroll.group_manager" confirm="Kembali ke status proses?"/>
+                        <button name="%(ka_hr_payroll.employee_reward_slip_report)d" type="action" string="Cetak Slip"
+                                class="oe_highlight" icon="fa-print" states="approved" groups="hr.group_hr_user"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Nama"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date_start"/>
+                                <field name="employee_id"/>
+                                <field name="reward_id" domain="[('reward_type', '=', reward_type)]"/>
+                                <field name="grand_total"/>
+                            </group>
+                            <group>
+                                <field name="date_approve"/>
+                                <field name="company_payroll_id"/>
+                            </group>
+                            <field name="notes"/>
+                        </group>
+                        <notebook>
+                            <page string="Detail Penghargaan">
+                                <group>
+                                    <group>
+                                        <field name="employee_gaji_pokok"/>
+                                        <label for="is_multiply_konjungtur" string="Konjungtur Gaji"/>
+                                        <div>
+                                            <div>
+                                                <field name="is_multiply_konjungtur" class="oe_inline"/>
+                                                <label string=" " class="oe_inline"/>
+                                                <field name="konjungtur_gaji" class="oe_inline"/>
+                                            </div>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field name="employee_gapok_total"/>
+                                        <label for="is_tunjangan_rumah" string="Tunj. Rumah"/>
+                                        <div>
+                                            <div>
+                                                <field name="is_tunjangan_rumah" class="oe_inline"/>
+                                                <label string=" " class="oe_inline"/>
+                                                <field name="employee_tunjangan_rumah" class="oe_inline"/>
+                                            </div>
+                                        </div>
+                                        <label for="is_tunjangan_jabatan" string="Tunj. Jabatan"/>
+                                        <div>
+                                            <div>
+                                                <field name="is_tunjangan_jabatan" class="oe_inline"/>
+                                                <label string=" " class="oe_inline"/>
+                                                <field name="employee_tunjangan_jabatan" class="oe_inline"/>
+                                            </div>
+                                        </div>
+                                        <label for="is_tunjangan_khusus" string="Tunj. Khusus"/>
+                                        <div>
+                                            <div>
+                                                <field name="is_tunjangan_khusus" class="oe_inline"/>
+                                                <label string=" " class="oe_inline"/>
+                                                <field name="employee_tunjangan_khusus" class="oe_inline"/>
+                                            </div>
+                                        </div>
+                                        <label for="is_tunjangan_representasi" string="Tunj. Representasi"/>
+                                        <div>
+                                            <div>
+                                                <field name="is_tunjangan_representasi" class="oe_inline"/>
+                                                <label string=" " class="oe_inline"/>
+                                                <field name="employee_tunjangan_representasi" class="oe_inline"/>
+                                            </div>
+                                        </div>
+                                        <field name="total_penerimaan"/>
+                                        <field name="multiply_value"/>
+                                        <field name="total"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Ref. Pembayar Rapel" attrs="{'invisible': [('reward_type', '=', '2')]}">
+                                <field name="rapel_ref_ids">
+                                    <tree>
+                                        <field name="payroll_rapel_pay_id"/>
+                                        <field name="employee_reward_rapel_value"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Penghargaan Lain-Lain" attrs="{'invisible': [('reward_type', '=', '1')]}">
+                                <field name="child_ids" context="{'default_parent_id': active_id}">
+                                    <tree editable="bottom">
+                                        <field name="parent_id" invisible="1"/>
+                                        <field name="reward_type"/>
+                                        <field name="description"/>
+                                        <field name="proportion_value"/>
+                                        <field name="total_penerimaan"/>
+                                        <field name="total"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_employee_reward_search">
+            <field name="name">ka_hr_payroll.employee.reward.search</field>
+            <field name="model">ka_hr_payroll.employee.reward</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="employee_id"/>
+                    <field name="reward_id"/>
+                    <field name="total"/>
+                    <field name="state"/>
+                    <field name="company_payroll_id" groups="base.group_multi_company"/>
+                    <filter name="reward_type_1" string="Masa Dinas" domain="[('reward_type', '=', '1')]"/>
+                    <filter name="reward_type_2" string="Pisah Pensiun" domain="[('reward_type', '=', '2')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_employee_reward_1">
+            <field name="name">Penghargaan Masa Dinas Karyawan</field>
+            <field name="res_model">ka_hr_payroll.employee.reward</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{
+                'search_default_reward_type_1': 1,
+                'default_reward_type': '1',
+                }
+            </field>
+        </record>
+
+        <menuitem action="action_employee_reward_1" id="menu_employee_reward_1" parent="menu_payroll" sequence="5"
+                  groups="hr.group_hr_user"/>
+
+        <record model="ir.actions.act_window" id="action_employee_reward_2">
+            <field name="name">Penghargaan Pisah Pensiun Karyawan</field>
+            <field name="res_model">ka_hr_payroll.employee.reward</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{
+                'search_default_reward_type_2': 1,
+                'default_reward_type': '2',
+                }
+            </field>
+        </record>
+
+        <menuitem action="action_employee_reward_2" id="menu_employee_reward_2" parent="menu_payroll" sequence="6"
+                  groups="hr.group_hr_user"/>
+    </data>
+</odoo>

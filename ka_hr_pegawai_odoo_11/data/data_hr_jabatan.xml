@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data noupdate="1">
+        <!-- Data of hr.jabatan -->
+        <record model="hr.jabatan" id="hr.hr_jabatan_02">
+            <field name="code">02</field>
+            <field name="name">Direktur Utama</field>
+            <field name="level" eval="1"/>
+        </record>
+        <record model="hr.jabatan" id="hr.hr_jabatan_04">
+            <field name="code">04</field>
+            <field name="name">Penasehat Direksi</field>
+            <field name="level" eval="2"/>
+        </record>
+        <record model="hr.jabatan" id="hr.hr_jabatan_05">
+            <field name="code">05</field>
+            <field name="name">Direktur Produksi</field>
+            <field name="level" eval="2"/>
+        </record>
+        <record model="hr.jabatan" id="hr.hr_jabatan_06">
+            <field name="code">06</field>
+            <field name="name">Direktur Keuangan</field>
+            <field name="level" eval="2"/>
+        </record>
+        <record model="hr.jabatan" id="hr.hr_jabatan_07">
+            <field name="code">07</field>
+            <field name="name">Pemimpin PG</field>
+            <field name="level" eval="3"/>
+        </record>
+        <record model="hr.jabatan" id="hr.hr_jabatan_08">
+            <field name="code">08</field>
+            <field name="name">Wakil Pemimpin PG</field>
+            <field name="level" eval="3"/>
+        </record>
+        <record model="hr.jabatan" id="hr.hr_jabatan_09">
+            <field name="code">09</field>
+            <field name="name">PJS. Pemimpin PG</field>
+            <field name="level" eval="3"/>
+        </record>
+        <record model="hr.jabatan" id="hr.hr_jabatan_10">
+            <field name="code">10</field>
+            <field name="name">Kepala Divisi</field>
+            <field name="level" eval="3"/>
+        </record>
+        <record model="hr.jabatan" id="hr.hr_jabatan_11">
+            <field name="code">11</field>
+            <field name="name">PJS. Kepala Divisi</field>
+            <field name="level" eval="3"/>
+        </record>
+        <record model="hr.jabatan" id="hr.hr_jabatan_12">
+            <field name="code">12</field>
+            <field name="name">Asisten Kepala Divisi</field>
+            <field name="level" eval="3"/>
+        </record>
+        <record model="hr.jabatan" id="hr.hr_jabatan_13">
+            <field name="code">13</field>
+            <field name="name">Kepala Bagian Direksi</field>
+            <field name="level" eval="4"/>
+        </record>
+        <record model="hr.jabatan" id="hr.hr_jabatan_14">
+            <field name="code">14</field>
+            <field name="name">PJS. Kepala Bagian Direksi</field>
+            <field name="level" eval="4"/>
+        </record>
+        <record model="hr.jabatan" id="hr.hr_jabatan_15">
+            <field name="code">15</field>
+            <field name="name">Kepala Bagian PG</field>
+            <field name="level" eval="4"/>
+        </record>
+        <record model="hr.jabatan" id="hr.hr_jabatan_16">
+            <field name="code">16</field>
+            <field name="name">PJS. Kepala Bagian PG</field>
+            <field name="level" eval="4"/>
+        </record>
+        <record model="hr.jabatan" id="hr.hr_jabatan_17">
+            <field name="code">17</field>
+            <field name="name">Kepala Seksi</field>
+            <field name="level" eval="5"/>
+        </record>
+        <record model="hr.jabatan" id="hr.hr_jabatan_18">
+            <field name="code">18</field>
+            <field name="name">Kepala Sub Seksi</field>
+            <field name="level" eval="6"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <!-- View of hr.jabatan -->
+    <record model="ir.ui.view" id="view_hr_jabatan_tree">
+        <field name="name">hr.jabatan.tree</field>
+        <field name="model">hr.jabatan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="level"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_hr_jabatan_form">
+        <field name="name">hr.jabatan.form</field>
+        <field name="model">hr.jabatan</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="code"/>
+                        <field name="name"/>
+                        <field name="level"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_hr_jabatan_search">
+        <field name="name">hr.jabatan.search</field>
+        <field name="model">hr.jabatan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="level"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_hr_jabatan">
+        <field name="name">Jabatan</field>
+        <field name="res_model">hr.jabatan</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Input data jabatan terlebih dahulu.</p>
+        </field>
+    </record>
+
+    <menuitem action="action_hr_jabatan" id="menu_sdm_jabatan" parent="sub_menu_master" sequence="2"
+              groups="base.group_user"/>
+</odoo>

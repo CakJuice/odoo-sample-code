@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+View of ka_hr_payroll.slip.report.wizard
+
+Author: @CakJuice <hd.brandoz@gmail.com>
+Website: https://cakjuice.com
+-->
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="wizard_slip_report_form">
+            <field name="name">ka_hr_payroll.slip.report.wizard.form</field>
+            <field name="model">ka_hr_payroll.slip.report.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="year_period"/>
+                        <field name="month_period"/>
+                        <field name="type_slip"/>
+                        <field name="employee_id" attrs="{'invisible': [('type_slip', '!=', '1')], 'required': [('type_slip', '=', '1')]}"/>
+                        <field name="status_id" attrs="{'invisible': [('type_slip', '=', '1')], 'required': [('type_slip', '!=', '1')]}"/>
+                        <field name="company_id" attrs="{'invisible': [('type_slip', '!=', '2')], 'required': [('type_slip', '=', '2')]}" groups="base.group_multi_company"/>
+                        <field name="company_payroll_id" attrs="{'invisible': [('type_slip', '=', '1')], 'required': [('type_slip', '!=', '1')]}" groups="base.group_multi_company"/>
+                    </group>
+                    <footer>
+                        <button name="generate_report" string="Cetak Slip" type="object" class="oe_highlight"/>
+                        <button string="Batal" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window
+            id="action_wizard_slip_report"
+            name="Cetak Slip Gaji"
+            res_model="ka_hr_payroll.slip.report.wizard"
+            view_mode="form"
+            target="new"/>
+
+        <menuitem action="action_wizard_slip_report" id="menu_wizard_slip_report" parent="menu_report" sequence="1" groups="hr.group_hr_user"/>
+    </data>
+</odoo>

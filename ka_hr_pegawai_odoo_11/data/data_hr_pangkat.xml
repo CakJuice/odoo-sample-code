@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data noupdate="1">
+        <!-- Data of hr.pangkat -->
+        <record model="hr.pangkat" id="hr.hr_pangkat_05">
+            <field name="code">05</field>
+            <field name="name">Direktur Utama</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_06">
+            <field name="code">06</field>
+            <field name="name">Direktur</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_08">
+            <field name="code">08</field>
+            <field name="name">Penata Utama</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_09">
+            <field name="code">09</field>
+            <field name="name">Penata Madya</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_10">
+            <field name="code">10</field>
+            <field name="name">Staf Utama</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_11">
+            <field name="code">11</field>
+            <field name="name">Staf Madya</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_12">
+            <field name="code">12</field>
+            <field name="name">Staf Muda</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_13">
+            <field name="code">13</field>
+            <field name="name">Staf Pertama</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_14">
+            <field name="code">14</field>
+            <field name="name">Staf Dasar</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_15">
+            <field name="code">15</field>
+            <field name="name">Pemegang Buku I</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_16">
+            <field name="code">16</field>
+            <field name="name">Pemegang Buku II</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_17">
+            <field name="code">17</field>
+            <field name="name">Pemegang Buku III</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_18">
+            <field name="code">18</field>
+            <field name="name">Employee Kantor I</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_19">
+            <field name="code">19</field>
+            <field name="name">Employee Kantor II</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_20">
+            <field name="code">20</field>
+            <field name="name">Sinder Kebun I</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_21">
+            <field name="code">21</field>
+            <field name="name">Sinder Kebun II</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_22">
+            <field name="code">22</field>
+            <field name="name">Sinder Kebun III</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_23">
+            <field name="code">23</field>
+            <field name="name">Opseter Kebun I</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_24">
+            <field name="code">24</field>
+            <field name="name">Opseter Kebun II</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_25">
+            <field name="code">25</field>
+            <field name="name">Masinis I</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_26">
+            <field name="code">26</field>
+            <field name="name">Masinis II</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_27">
+            <field name="code">27</field>
+            <field name="name">Masinis III</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_28">
+            <field name="code">28</field>
+            <field name="name">Opseter Pabrik I</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_29">
+            <field name="code">29</field>
+            <field name="name">Opseter Pabrik II</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_30">
+            <field name="code">30</field>
+            <field name="name">Chemiker I</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_31">
+            <field name="code">31</field>
+            <field name="name">Chemiker II</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_32">
+            <field name="code">32</field>
+            <field name="name">Chemiker III</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_33">
+            <field name="code">33</field>
+            <field name="name">Opseter Pabrikasi I</field>
+        </record>
+        <record model="hr.pangkat" id="hr.hr_pangkat_34">
+            <field name="code">34</field>
+            <field name="name">Opseter Pabrikasi II</field>
+        </record>
+    </data>
+</odoo>
